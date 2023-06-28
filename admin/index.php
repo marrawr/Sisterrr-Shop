@@ -52,7 +52,7 @@ exit();
 				</a>
 
 			  	<a class="brand" href="index.html">
-			  		Sisterrr Shop | Admin
+			  		Sisterrr Shop | Staff
 			  	</a>
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">
@@ -114,7 +114,7 @@ exit();
 		<div class="container">
 			 
 
-			<b class="copyright">&copy; 2017 Sisterrr Shop </b> All rights reserved.
+			<b class="copyright">&copy; 2023 Sisterrr Shop </b> All rights reserved.
 		</div>
 	</div>
 	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
