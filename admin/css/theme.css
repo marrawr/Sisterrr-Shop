@@ -929,7 +929,7 @@ transition: all .2s ease-in-out;
 }
 .widget-menu>li>a {
 	background-color: #876345;
-	color: #ffffff;
+	color: #b7b7b7;
 	-webkit-transition: all .2s ease-in-out;
 -moz-transition: all .2s ease-in-out;
 transition: all .2s ease-in-out;
