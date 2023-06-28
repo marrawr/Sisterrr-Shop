@@ -16,7 +16,7 @@
 						</a></li>
 						<li class="nav-user dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="images/" class="nav-avatar" />
+								<img src="images/user.jpg" class="nav-avatar" />
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
