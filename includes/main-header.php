@@ -106,7 +106,7 @@ if(!empty($_SESSION['cart'])){
 			<div class="clearfix cart-total">
 				<div class="pull-right">
 					
-						<span class="text">Total :</span><span class='price'>Rs.<?php echo $_SESSION['tp']="$totalprice". ".00"; ?></span>
+						<span class="text">Total :</span><span class='price'>RM.<?php echo $_SESSION['tp']="$totalprice". ".00"; ?></span>
 						
 				</div>
 			
@@ -126,7 +126,7 @@ if(!empty($_SESSION['cart'])){
 				<div class="total-price-basket">
 					<span class="lbl">cart -</span>
 					<span class="total-price">
-						<span class="sign">Rs.</span>
+						<span class="sign">RM.</span>
 						<span class="value">00.00</span>
 					</span>
 				</div>
