@@ -46,7 +46,7 @@ $_SESSION['msg']="Product Inserted Successfully !!";
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Staff | Insert Product</title>
+	<title>Manager | Insert New Staff</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -86,7 +86,7 @@ $("#suggesstion-box").hide();
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Insert Product</h3>
+								<h3>Insert New Staff</h3>
 							</div>
 							<div class="module-body">
 
