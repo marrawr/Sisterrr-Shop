@@ -87,7 +87,7 @@ exit();
 						<div class="module-body">
 							<div class="control-group">
 								<div class="controls row-fluid">
-									<input class="span12" type="text" id="inputEmail" name="username" placeholder="Username">
+									<input class="span12" type="text" id="inputMusername" name="musername" placeholder="Username">
 								</div>
 							</div>
 							<div class="control-group">

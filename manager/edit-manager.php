@@ -10,17 +10,17 @@ else{
 if(isset($_POST['submit']))
 {
 	
-	$musername=$_POST['musername'];
+	$username=$_POST['musername'];
 	$password=md5($_POST['password']);
 	$mupdationdate=$_POST['mupdationDate'];
 	$query=mysqli_query($con,"insert into manager(musername,password,mupdationDate) values('$musername','$password','$mupdationdate')");
 
 	if($query)
 {
-	echo "<script>alert('Your staff are successfully register');</script>";
+	echo "<script>alert('Manager are successfully register');</script>";
 }
 else{
-echo "<script>alert('Your staff register something went worng');</script>";
+echo "<script>alert('Manager register something went worng');</script>";
 }
 }
 
@@ -31,7 +31,7 @@ echo "<script>alert('Your staff register something went worng');</script>";
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Manager | Insert New Staff</title>
+	<title>Manager | Insert New Manager</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -80,29 +80,29 @@ echo "<script>alert('Your staff register something went worng');</script>";
 <form class="form-horizontal row-fluid" name="insertproduct" method="post" enctype="multipart/form-data">
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Manager Name</label>
+<label class="control-label" for="basicinput">Staff Name</label>
 <div class="controls">
-<input type="text"    name="musername"  placeholder="Enter Manager Username" class="span8 tip" required>
+<input type="text"    name="musername"  placeholder="Enter Manager Name" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
 	    	<label class="control-label" for="password">Manager Password<span>*</span></label>
 			<div class="controls">
-	    	<input type="password" class="form-control unicase-form-control text-input span8 tip" id="password" name="password" placeholder="Enter Manager Password" required >
+	    	<input type="password" class="form-control unicase-form-control text-input span8 tip" id="password" name="password" placeholder="Enter Staff Password" required >
 </div>
 </div>
 
 <div class="control-group">
 	    	<label class="control-label" for="confirmpassword">Manager Confirm Password<span>*</span></label>
 			<div class="controls">
-	    	<input type="password" class="form-control unicase-form-control text-input span8 tip" id="confirmpassword" name="confirmpassword" placeholder="Enter Manager Confirm Password" required >
+	    	<input type="password" class="form-control unicase-form-control text-input span8 tip" id="confirmpassword" name="confirmpassword" placeholder="Enter Staff Confirm Password" required >
 	  	</div>
 		  </div>
 
 	<div class="control-group">
 											<div class="controls">
-												<button type="submit" name="submit" class="btn">Insert</button>
+												<button type="submit" name="submit" class="btn">Update</button>
 											</div>
 										</div>
 									</form>

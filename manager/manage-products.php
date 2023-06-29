@@ -65,7 +65,6 @@ if(isset($_GET['del']))
 											<th>Staff Password </th>
 											<th>Staff Position</th>
 											<th>Creation Date</th>
-											<th>Updation Date</th>
 											<th>Action</th>
 											
 										</tr>
@@ -84,7 +83,6 @@ while($row=mysqli_fetch_array($query))
 											<td> <?php echo htmlentities($row['password']);?></td>
 											<td> <?php echo htmlentities($row['position']);?></td>
 											<td><?php echo htmlentities($row['creationDate']);?></td>
-											<td><?php echo htmlentities($row['updationDate']);?></td>
 											<td>
 											<a href="edit-products.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
 											<a href="manage-products.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
