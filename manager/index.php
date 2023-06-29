@@ -5,8 +5,8 @@ include("include/config.php");
 if(isset($_POST['submit']))
 {
 	$musername=$_POST['musername'];
-	$mpassword=md5($_POST['mpassword']);
-$ret=mysqli_query($con,"SELECT * FROM manager WHERE musername='$musername' and mpassword='$mpassword'");
+	$password=md5($_POST['password']);
+$ret=mysqli_query($con,"SELECT * FROM manager WHERE musername='$musername' and password='$password'");
 $num=mysqli_fetch_array($ret);
 if($num>0)
 {
