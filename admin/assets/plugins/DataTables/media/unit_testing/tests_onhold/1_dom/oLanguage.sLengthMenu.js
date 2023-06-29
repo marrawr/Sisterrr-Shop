@@ -31,7 +31,7 @@ $(document).ready( function () {
 			var anChildren = $('label',oSettings.aanFeatures.l[0])[0].childNodes;
 			var bReturn =
 				anChildren[0].nodeValue == "Show " &&
-				anChildren[2].nodeValue == " entries";
+				anChildren[2].nodeValue ==;
 			return bReturn;
 		}
 	);

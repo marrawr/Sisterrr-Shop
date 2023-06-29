@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include('include/config.php');
@@ -7,22 +6,23 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
-	$pid=intval($_GET['id']);// product id
+	
 if(isset($_POST['submit']))
 {
-	$category=$_POST['category'];
-	$subcat=$_POST['subcategory'];
-	$productname=$_POST['productName'];
-	$productcompany=$_POST['productCompany'];
-	$productprice=$_POST['productprice'];
-	$productpricebd=$_POST['productpricebd'];
-	$productdescription=$_POST['productDescription'];
-	$productscharge=$_POST['productShippingcharge'];
-	$productavailability=$_POST['productAvailability'];
 	
-$sql=mysqli_query($con,"update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productPriceBeforeDiscount='$productpricebd' where id='$pid' ");
-$_SESSION['msg']="Product Updated Successfully !!";
+	$username=$_POST['username'];
+	$position=$_POST['position'];
+	$password=md5($_POST['password']);
+	$updationdate=$_POST['updationDate'];
+	$query=mysqli_query($con,"insert into admin(username,position,password,updationDate) values('$username','$position','$password','$updationdate')");
 
+	if($query)
+{
+	echo "<script>alert('Your staff are successfully register');</script>";
+}
+else{
+echo "<script>alert('Your staff register something went worng');</script>";
+}
 }
 
 
@@ -32,7 +32,7 @@ $_SESSION['msg']="Product Updated Successfully !!";
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Manager | Insert Staff</title>
+	<title>Manager | Insert New Staff</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -40,24 +40,6 @@ $_SESSION['msg']="Product Updated Successfully !!";
 	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
 <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
-
-   <script>
-function getSubcat(val) {
-	$.ajax({
-	type: "POST",
-	url: "get_subcat.php",
-	data:'cat_id='+val,
-	success: function(data){
-		$("#subcategory").html(data);
-	}
-	});
-}
-function selectCountry(val) {
-$("#search-box").val(val);
-$("#suggesstion-box").hide();
-}
-</script>	
-
 
 </head>
 <body>
@@ -72,7 +54,7 @@ $("#suggesstion-box").hide();
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Insert Product</h3>
+								<h3>Insert New Staff</h3>
 							</div>
 							<div class="module-body">
 
@@ -80,7 +62,7 @@ $("#suggesstion-box").hide();
 {?>
 									<div class="alert alert-success">
 										<button type="button" class="close" data-dismiss="alert">×</button>
-									<strong>Well done!</strong>	<?php echo htmlentities($_SESSION['msg']);?><?php echo htmlentities($_SESSION['msg']="");?>
+									<strong>Well done!</strong>	
 									</div>
 <?php } ?>
 
@@ -95,133 +77,37 @@ $("#suggesstion-box").hide();
 
 									<br />
 
-			<form class="form-horizontal row-fluid" name="insertproduct" method="post" enctype="multipart/form-data">
 
-<?php 
-
-$query=mysqli_query($con,"select products.*,category.categoryName as catname,category.id as cid,subcategory.subcategory as subcatname,subcategory.id as subcatid from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory where products.id='$pid'");
-$cnt=1;
-while($row=mysqli_fetch_array($query))
-{
-  
-
-
-?>
-
+<form class="form-horizontal row-fluid" name="insertproduct" method="post" enctype="multipart/form-data">
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Category</label>
+<label class="control-label" for="basicinput">Staff Name</label>
 <div class="controls">
-<select name="category" class="span8 tip" onChange="getSubcat(this.value);"  required>
-<option value="<?php echo htmlentities($row['cid']);?>"><?php echo htmlentities($row['catname']);?></option> 
-<?php $query=mysqli_query($con,"select * from category");
-while($rw=mysqli_fetch_array($query))
-{
-	if($row['catname']==$rw['categoryName'])
-	{
-		continue;
-	}
-	else{
-	?>
-
-<option value="<?php echo $rw['id'];?>"><?php echo $rw['categoryName'];?></option>
-<?php }} ?>
-</select>
-</div>
-</div>
-
-									
-<div class="control-group">
-<label class="control-label" for="basicinput">Sub Category</label>
-<div class="controls">
-
-<select   name="subcategory"  id="subcategory" class="span8 tip" required>
-<option value="<?php echo htmlentities($row['subcatid']);?>"><?php echo htmlentities($row['subcatname']);?></option>
-</select>
-</div>
-</div>
-
-
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Name</label>
-<div class="controls">
-<input type="text"    name="productName"  placeholder="Enter Product Name" value="<?php echo htmlentities($row['productName']);?>" class="span8 tip" >
+<input type="text"    name="username"  placeholder="Enter Staff Name" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Product Company</label>
+<label class="control-label" for="basicinput">Staff Position</label>
 <div class="controls">
-<input type="text"    name="productCompany"  placeholder="Enter Product Comapny Name" value="<?php echo htmlentities($row['productCompany']);?>" class="span8 tip" required>
-</div>
-</div>
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Price Before Discount</label>
-<div class="controls">
-<input type="text"    name="productpricebd"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPriceBeforeDiscount']);?>"  class="span8 tip" required>
+<input type="text"    name="position"  placeholder="Enter Staff Position" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Product Price</label>
-<div class="controls">
-<input type="text"    name="productprice"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPrice']);?>" class="span8 tip" required>
+	    	<label class="control-label" for="password">Staff Password<span>*</span></label>
+			<div class="controls">
+	    	<input type="password" class="form-control unicase-form-control text-input span8 tip" id="password" name="password" placeholder="Enter Staff Password" required >
 </div>
 </div>
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Product Description</label>
-<div class="controls">
-<textarea  name="productDescription"  placeholder="Enter Product Description" rows="6" class="span8 tip">
-<?php echo htmlentities($row['productDescription']);?>
-</textarea>  
-</div>
-</div>
+	    	<label class="control-label" for="confirmpassword">Staff Confirm Password<span>*</span></label>
+			<div class="controls">
+	    	<input type="password" class="form-control unicase-form-control text-input span8 tip" id="confirmpassword" name="confirmpassword" placeholder="Enter Staff Confirm Password" required >
+	  	</div>
+		  </div>
 
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Shipping Charge</label>
-<div class="controls">
-<input type="text"    name="productShippingcharge"  placeholder="Enter Product Shipping Charge" value="<?php echo htmlentities($row['shippingCharge']);?>" class="span8 tip" required>
-</div>
-</div>
-
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Availability</label>
-<div class="controls">
-<select   name="productAvailability"  id="productAvailability" class="span8 tip" required>
-<option value="<?php echo htmlentities($row['productAvailability']);?>"><?php echo htmlentities($row['productAvailability']);?></option>
-<option value="In Stock">In Stock</option>
-<option value="Out of Stock">Out of Stock</option>
-</select>
-</div>
-</div>
-
-
-
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Image1</label>
-<div class="controls">
-<img src="productimages/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productImage1']);?>" width="200" height="100"> <a href="update-image1.php?id=<?php echo $row['id'];?>">Change Image</a>
-</div>
-</div>
-
-
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Image2</label>
-<div class="controls">
-<img src="productimages/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productImage2']);?>" width="200" height="100"> <a href="update-image2.php?id=<?php echo $row['id'];?>">Change Image</a>
-</div>
-</div>
-
-
-
-<div class="control-group">
-<label class="control-label" for="basicinput">Product Image3</label>
-<div class="controls">
-<img src="productimages/<?php echo htmlentities($pid);?>/<?php echo htmlentities($row['productImage3']);?>" width="200" height="100"> <a href="update-image3.php?id=<?php echo $row['id'];?>">Change Image</a>
-</div>
-</div>
-<?php } ?>
 	<div class="control-group">
 											<div class="controls">
 												<button type="submit" name="submit" class="btn">Update</button>

@@ -13,11 +13,11 @@ $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_POST['submit']))
 {
-$sql=mysqli_query($con,"SELECT password FROM  admin where password='".md5($_POST['password'])."' && username='".$_SESSION['alogin']."'");
+$sql=mysqli_query($con,"SELECT mpassword FROM  manager where mpassword='".md5($_POST['mpassword'])."' && musername='".$_SESSION['alogin']."'");
 $num=mysqli_fetch_array($sql);
 if($num>0)
 {
- $con=mysqli_query($con,"update admin set password='".md5($_POST['newpassword'])."', updationDate='$currentTime' where username='".$_SESSION['alogin']."'");
+ $con=mysqli_query($con,"update admin set password='".md5($_POST['newpassword'])."', updationDate='$currentTime' where musername='".$_SESSION['alogin']."'");
 $_SESSION['msg']="Password Changed Successfully !!";
 }
 else
@@ -40,7 +40,7 @@ $_SESSION['msg']="Old Password not match !!";
 	<script type="text/javascript">
 function valid()
 {
-if(document.chngpwd.password.value=="")
+if(document.chngpwd.mpassword.value=="")
 {
 alert("Current Password Filed is Empty !!");
 document.chngpwd.password.focus();

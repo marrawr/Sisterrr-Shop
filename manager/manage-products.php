@@ -12,8 +12,8 @@ $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_GET['del']))
 		  {
-		          mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Product deleted !!";
+		          mysqli_query($con,"delete from admin where id = '".$_GET['id']."'");
+                  $_SESSION['delmsg']="Staff deleted !!";
 		  }
 
 ?>
@@ -58,29 +58,33 @@ if(isset($_GET['del']))
 								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
 									<thead>
 										<tr>
+
 											<th>#</th>
-											<th>Product Name</th>
-											<th>Category </th>
-											<th>Subcategory</th>
-											<th>Company Name</th>
-											<th>Product Creation Date</th>
+											<th>Staff Id</th>
+											<th>Staff Username </th>
+											<th>Staff Password </th>
+											<th>Staff Position</th>
+											<th>Creation Date</th>
+											<th>Updation Date</th>
 											<th>Action</th>
+											
 										</tr>
 									</thead>
 									<tbody>
 
-<?php $query=mysqli_query($con,"select products.*,category.categoryName,subcategory.subcategory from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
+<?php $query=mysqli_query($con,"select * from admin");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
 ?>									
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($row['productName']);?></td>
-											<td><?php echo htmlentities($row['categoryName']);?></td>
-											<td> <?php echo htmlentities($row['subcategory']);?></td>
-											<td><?php echo htmlentities($row['productCompany']);?></td>
-											<td><?php echo htmlentities($row['postingDate']);?></td>
+											<td><?php echo htmlentities($row['id']);?></td>
+											<td><?php echo htmlentities($row['username']);?></td>
+											<td> <?php echo htmlentities($row['password']);?></td>
+											<td> <?php echo htmlentities($row['position']);?></td>
+											<td><?php echo htmlentities($row['creationDate']);?></td>
+											<td><?php echo htmlentities($row['updationDate']);?></td>
 											<td>
 											<a href="edit-products.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
 											<a href="manage-products.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
