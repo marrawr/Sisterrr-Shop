@@ -15,6 +15,7 @@ if(isset($_GET['del']))
 		          mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
                   $_SESSION['delmsg']="Product deleted !!";
 		  }
+        }
 
 ?>
 <!DOCTYPE html>
@@ -131,32 +132,26 @@ $y2=date("Y",$month2);
 </tr>
 </thead>
 <?php
-$ret=mysqli_query($con,"select month(orderDate) as lmonth, year(orderDate) as lyear, 
-orders.id, orders.quantity, products.productPrice from orders 
-left join products on products.id=orders.productId 
-where date(orders.orderDate) between '$fdate' and '$tdate'
-group by lmonth, lyear");
+$ret=mysqli_query($con,"SELECT
+DATE_FORMAT(o.orderDate, '%Y-%m') AS Month,
+SUM(o.quantity * p.productPrice) AS TotalSales
+FROM
+orders o
+JOIN
+products p ON o.productId = p.id
+GROUP BY
+DATE_FORMAT(o.orderDate, '%Y-%m')
+ORDER BY
+Month;
+");
+
 $num=mysqli_num_rows($ret);
 if($num>0){
 $cnt=1;
 while ($row=mysqli_fetch_array($ret)) {
  
 ?>
-<tbody>
-<tr>
-        <td><?php echo $cnt;?></td>
-        <td><?php  echo $row['lmonth']."/".$row['lyear'];?></td>
-        <td><?php  echo $total=$row['productPrice']*$row['quantity'];?></td>
-</tr>
-<?php
-$ftotal+=$total;
-$cnt++;
-}?>
-<tr>
-              <td colspan="2" align="center">Total </td>
-              <td><?php  echo $ftotal;?></td>
-                </tr>             
-               </tbody>
+
 </table>
 <?php } } else {
 $year1=strtotime($fdate);
@@ -184,11 +179,17 @@ $y2=date("Y",$year2);
 </tr>
 </thead>
 <?php
-$ret=mysqli_query($con,"select month(orders.OrderDate) as lmonth, year(orders.OrderDate) as lyear, 
-orders.id, orders.quantity, products.productPrice from orders 
-left join products on products.id=orders.productId 
-where date(orders.OrderDate) between '$fdate' and '$tdate'
-group by lyear ");
+$ret=mysqli_query($con,"SELECT YEAR(o.orderDate) AS Year,
+SUM(o.quantity * p.productPrice) AS TotalSales
+FROM
+orders o
+JOIN
+products p ON o.productId = p.id
+GROUP BY
+YEAR(o.orderDate)
+ORDER BY
+Year;
+");
 
 $num=mysqli_num_rows($ret);
 if($num>0){
@@ -241,3 +242,4 @@ $cnt++;
 	</script>
 </body>
 <?php } ?>
+    }
