@@ -58,32 +58,15 @@ if(isset($_GET['del']))
 									<br />
     
     
-    <form name="bwdatesdata" action="" method="post" action="">
-  <table width="100%" height="117"  border="0">
-<tr>
-    <th width="27%" height="63" scope="row">From Date :</th>
-    <td width="73%">
-<input type="date" name="fdate" class="form-control" id="fdate">
-    	</td>
-  </tr>
-  <tr>
-    <th width="27%" height="63" scope="row">To Date :</th>
-    <td width="73%">
-    	<input type="date" name="tdate" class="form-control" id="tdate"></td>
-  </tr>
-  <tr>
-    <th width="27%" height="63" scope="row">Request Type :</th>
-    <td width="73%">
-         <input type="radio" name="requesttype" value="mtwise" checked="true">Month wise
-          <input type="radio" name="requesttype" value="yrwise">Year wise</td>
-  </tr>
-<tr>
-    <th width="27%" height="63" scope="row"></th>
-    <td width="73%">
-    <button class="btn-primary btn" type="submit" name="submit">Submit</button>
-  </tr>
-</table>
-     </form>
+									<form method="POST" action="generate_report.php">
+        <label for="report_type">Select Report Type:</label>
+        <select name="report_type" id="report_type">
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Generate Report">
+    </form>
 
 
 							
@@ -93,22 +76,7 @@ if(isset($_GET['del']))
 
     <div class="row">
       <div class="col-xs-12">
-      	 <?php
-      	 if(isset($_POST['submit']))
-{ 
-$fdate=$_POST['fdate'];
-$tdate=$_POST['tdate'];
-$rtype=$_POST['requesttype'];
-?>
-<?php if($rtype=='mtwise'){
-$month1=strtotime($fdate);
-$month2=strtotime($tdate);
-$m1=date("F",$month1);
-$m2=date("F",$month2);
-$y1=date("Y",$month1);
-$y2=date("Y",$month2);
-    ?>
-    
+      	 
     <div class="span9">
 					<div class="content">
 
@@ -120,98 +88,65 @@ $y2=date("Y",$month2);
   
 
 
-<h4 align="center" style="color:chocolate">Sales Report  from <?php echo $m1."-".$y1;?> to <?php echo $m2."-".$y2;?></h4>
-<hr >
-<div class="row">
- <table class="table table-bordered" width="100%"  border="0" style="padding-left:40px">
-<thead>
-<tr>
-<th>S.NO</th>
-<th>Month / Year </th>
-<th>Sales</th>
-</tr>
-</thead>
-<?php
-$ret=mysqli_query($con,"SELECT
-DATE_FORMAT(o.orderDate, '%Y-%m') AS Month,
-SUM(o.quantity * p.productPrice) AS TotalSales
-FROM
-orders o
-JOIN
-products p ON o.productId = p.id
-GROUP BY
-DATE_FORMAT(o.orderDate, '%Y-%m')
-ORDER BY
-Month;
-");
 
-$num=mysqli_num_rows($ret);
-if($num>0){
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
- 
+</table>  
+<?php
+
+// Prepare the SQL query based on the report type
+if ($reportType == "monthly") {
+    $query = "
+    SELECT
+        p.id AS productId,
+        SUM(o.quantity) AS totalQuantity,
+        SUM(o.quantity * p.productPrice) AS totalRevenue
+    FROM
+        orders o
+    JOIN
+        products p ON o.productId = p.id
+    WHERE
+        o.orderDate >= DATE_TRUNC('month', CURRENT_DATE)
+    GROUP BY
+        p.id;
+    ";
+} elseif ($reportType == "yearly") {
+    $query = "
+    SELECT
+        p.id AS productId,
+        SUM(o.quantity) AS totalQuantity,
+        SUM(o.quantity * p.productPrice) AS totalRevenue
+    FROM
+        orders o
+    JOIN
+        products p ON o.productId = p.id
+    WHERE
+        o.orderDate >= DATE_TRUNC('year', CURRENT_DATE)
+    GROUP BY
+        p.id;
+    ";
+}
+
+
+// Display the sales report
+if ($result->num_rows > 0) {
+    echo "<h2>{$reportType} Sales Report</h2>";
+    echo "<table>";
+    echo "<tr><th>Product ID</th><th>Total Quantity</th><th>Total Revenue</th></tr>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>{$row['productId']}</td>";
+        echo "<td>{$row['totalQuantity']}</td>";
+        echo "<td>{$row['totalRevenue']}</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "<p>No sales data available for the selected report type.</p>";
+}
+
+// Close the database connection
+$conn->close();
 ?>
 
-</table>
-<?php } } else {
-$year1=strtotime($fdate);
-$year2=strtotime($tdate);
-$y1=date("Y",$year1);
-$y2=date("Y",$year2);
-?>
-<div class="span9">
-					<div class="content">
-
-	<div class="module">
-							<div class="module-head">
-                            <h3>Sales Report Year Wise</h3>
-							</div>
-							<div class="module-body table">
-
-<h4 align="center" style="color:chocolate">Sales Report  from <?php echo $y1;?> to <?php echo $y2;?></h4>
-        <hr >
-<div class="row">
-<table class="table table-bordered" width="100%"  border="0" style="padding-left:40px">
-<thead>
-<th>S.NO</th>
-<th>Year </th>
-<th>Sales</th>
-</tr>
-</thead>
-<?php
-$ret=mysqli_query($con,"SELECT YEAR(o.orderDate) AS Year,
-SUM(o.quantity * p.productPrice) AS TotalSales
-FROM
-orders o
-JOIN
-products p ON o.productId = p.id
-GROUP BY
-YEAR(o.orderDate)
-ORDER BY
-Year;
-");
-
-$num=mysqli_num_rows($ret);
-if($num>0){
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
-?>
-<tbody>
-<tr>
-<td><?php echo $cnt;?></td>
-<td><?php  echo $row['lyear'];?></td>
-<td><?php  echo $total=$row['productPrice']*$row['quantity'];?></td>
-</tr>
-<?php
-$ftotal+=$total;
-$cnt++;
-}?>
-<tr>
-<td colspan="2" align="center">Total </td>
-<td><?php  echo $ftotal;?></td>
-</tr>             
- </tbody>
-</table>  <?php } } }?>  
 </div>
       </div>
     </div>  
@@ -241,5 +176,5 @@ $cnt++;
 		} );
 	</script>
 </body>
-<?php } ?>
-    }
+<?php ?>
+    

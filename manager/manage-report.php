@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include('include/config.php');
@@ -57,36 +56,42 @@ if(isset($_GET['del']))
 									<br />
     
     
-    <form name="bwdatesdata" action="" method="post" action="">
-  <table width="100%" height="117"  border="0">
-<tr>
-    <th width="27%" height="63" scope="row">From Date :</th>
-    <td width="73%">
+    
+<form class="form-horizontal row-fluid" name="bwdatesdata" action="" method="post" action="">
+	
+<div class="control-group">
+<label class="control-label" for="basicinput">From Date :</label>
+<div class="controls">
 <input type="date" name="fdate" class="form-control" id="fdate">
-    	</td>
-  </tr>
-  <tr>
-    <th width="27%" height="63" scope="row">To Date :</th>
-    <td width="73%">
-    	<input type="date" name="tdate" class="form-control" id="tdate"></td>
-  </tr>
-  <tr>
-    <th width="27%" height="63" scope="row">Request Type :</th>
-    <td width="73%">
-         <input type="radio" name="requesttype" value="mtwise" checked="true">Month wise
-          <input type="radio" name="requesttype" value="yrwise">Year wise</td>
-  </tr>
-<tr>
-    <th width="27%" height="63" scope="row"></th>
-    <td width="73%">
-    <button class="btn-primary btn" type="submit" name="submit">Submit</button>
-  </tr>
-</table>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label" for="basicinput">To Date :</label>
+<div class="controls">
+<input type="date" name="tdate" class="form-control" id="tdate">
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label" scope="row">Request Type :</label>
+<div class="controls">
+<input type="radio" name="requesttype" value="mtwise" checked="true">Month wise</td>
+<input type="radio" name="requesttype" value="yrwise">Year wise</td>
+</div>
+</div>
+
+<div class="control-group">
+<div class="controls">
+<button type="submit" name="submit" class="btn">Submit</button></td>
+</div>
+</div>
      </form>
+	 </div>
+</div>
 
-
-							
-								<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" width="100%">
+<li>							
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" width="100%">
 									
 
 
@@ -122,20 +127,19 @@ $y2=date("Y",$month2);
 <h4 align="center" style="color:chocolate">Sales Report  from <?php echo $m1."-".$y1;?> to <?php echo $m2."-".$y2;?></h4>
 <hr >
 <div class="row">
- <table class="table table-bordered" width="100%"  border="0" style="padding-left:40px">
-<thead>
-<tr>
+<table class="table table-bordered" width="100%"  border="0" style="padding-left:40px">
 <th>S.NO</th>
 <th>Month / Year </th>
 <th>Sales</th>
-</tr>
-</thead>
+</div>
+</div>
+
 <?php
-$ret=mysqli_query($con,"select month(orderDate) as lmonth, year(orderDate) as lyear, 
-orders.id, orders.quantity, products.productPrice from orders 
-left join products on products.id=orders.productId 
-where date(orders.orderDate) between '$fdate' and '$tdate'
-group by lmonth, lyear");
+$ret=mysqli_query($con,"select month(orderDate) as lmonth, year(orderDate) as lyear,
+products.productPrice,orders.quantity from orders 
+join products on products.id=orders.productId 
+where date(orders.orderDate) between '$fdate' and '$tdate' 
+group by lmonth,lyear");
 $num=mysqli_num_rows($ret);
 if($num>0){
 $cnt=1;
@@ -158,6 +162,8 @@ $cnt++;
                 </tr>             
                </tbody>
 </table>
+
+<table>
 <?php } } else {
 $year1=strtotime($fdate);
 $year2=strtotime($tdate);
@@ -184,10 +190,11 @@ $y2=date("Y",$year2);
 </tr>
 </thead>
 <?php
-$ret=mysqli_query($con,"select month(orders.OrderDate) as lmonth, year(orders.OrderDate) as lyear, 
-orders.id, orders.quantity, products.productPrice from orders 
-left join products on products.id=orders.productId 
-where date(orders.OrderDate) between '$fdate' and '$tdate'
+
+$ret=mysqli_query($con,"select month(orderDate) as lmonth, year(orderDate) as lyear,
+products.productPrice, orders.quantity from orders 
+join products on products.ID=orders.productId 
+where date(orders.orderDate) between '$fdate' and '$tdate'
 group by lyear ");
 
 $num=mysqli_num_rows($ret);
@@ -215,6 +222,7 @@ $cnt++;
       </div>
     </div>  
   </div>
+  </li>
 						
 						
 					</div><!--/.content-->
@@ -222,6 +230,7 @@ $cnt++;
 			</div>
 		</div><!--/.container-->
 	</div><!--/.wrapper-->
+
 
 <?php include('include/footer.php');?>
 
@@ -239,5 +248,6 @@ $cnt++;
 			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 		} );
 	</script>
+	
 </body>
 <?php } ?>
