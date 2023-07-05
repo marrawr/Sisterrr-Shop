@@ -88,9 +88,10 @@ if(isset($_GET['del']))
 </div>
      </form>
 	 </div>
-</div>
 
-<li>							
+
+</div><!--/.content-->
+
 <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" width="100%">
 									
 
@@ -131,15 +132,15 @@ $y2=date("Y",$month2);
 <th>S.NO</th>
 <th>Month / Year </th>
 <th>Sales</th>
-</div>
-</div>
+
+
 
 <?php
-$ret=mysqli_query($con,"select month(orderDate) as lmonth, year(orderDate) as lyear,
+$ret=mysqli_query($con,"select month(orderDate) as onemonth, year(orderDate) as oneyear,
 products.productPrice,orders.quantity from orders 
 join products on products.id=orders.productId 
 where date(orders.orderDate) between '$fdate' and '$tdate' 
-group by lmonth,lyear");
+group by onemonth, oneyear");
 $num=mysqli_num_rows($ret);
 if($num>0){
 $cnt=1;
@@ -149,14 +150,14 @@ while ($row=mysqli_fetch_array($ret)) {
 <tbody>
 <tr>
         <td><?php echo $cnt;?></td>
-        <td><?php  echo $row['lmonth']."/".$row['lyear'];?></td>
+        <td><?php  echo $row['onemonth']."/".$row['oneyear'];?></td>
         <td><?php  echo $total=$row['productPrice']*$row['quantity'];?></td>
 </tr>
 <?php
 $ftotal+=$total;
 $cnt++;
 }?>
-<tr>
+
               <td colspan="2" align="center">Total </td>
               <td><?php  echo $ftotal;?></td>
                 </tr>             
@@ -187,15 +188,15 @@ $y2=date("Y",$year2);
 <th>S.NO</th>
 <th>Year </th>
 <th>Sales</th>
-</tr>
+
 </thead>
 <?php
 
-$ret=mysqli_query($con,"select month(orderDate) as lmonth, year(orderDate) as lyear,
+$ret=mysqli_query($con,"select month(orderDate) as onemonth, year(orderDate) as oneyear,
 products.productPrice, orders.quantity from orders 
 join products on products.ID=orders.productId 
 where date(orders.orderDate) between '$fdate' and '$tdate'
-group by lyear ");
+group by oneyear ");
 
 $num=mysqli_num_rows($ret);
 if($num>0){
@@ -205,7 +206,7 @@ while ($row=mysqli_fetch_array($ret)) {
 <tbody>
 <tr>
 <td><?php echo $cnt;?></td>
-<td><?php  echo $row['lyear'];?></td>
+<td><?php  echo $row['oneyear'];?></td>
 <td><?php  echo $total=$row['productPrice']*$row['quantity'];?></td>
 </tr>
 <?php
@@ -218,18 +219,18 @@ $cnt++;
 </tr>             
  </tbody>
 </table>  <?php } } }?>  
-</div>
-      </div>
-    </div>  
-  </div>
-  </li>
-						
-						
-					</div><!--/.content-->
-				</div><!--/.span9-->
-			</div>
+
+</table>
+	
+				
+				</div><!--/.content-->
+			</div><!--/.span9-->
 		</div><!--/.container-->
+		
+	</div>
 	</div><!--/.wrapper-->
+
+	
 
 
 <?php include('include/footer.php');?>
