@@ -151,6 +151,7 @@ echo "<script>alert('Shipping Address has been updated');</script>";
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
+				
 				<li><a href="#">Home</a></li>
 				<li class='active'>Shopping Cart</li>
 			</ul>
@@ -163,6 +164,7 @@ echo "<script>alert('Shipping Address has been updated');</script>";
 		<div class="row inner-bottom-sm">
 			<div class="shopping-cart">
 				<div class="col-md-12 col-sm-12 shopping-cart-table ">
+					
 	<div class="table-responsive">
 <form name="cart" method="post">	
 <?php
@@ -394,8 +396,9 @@ while($row=mysqli_fetch_array($query))
 				</tr>
 		</tbody><!-- /tbody -->
 	</table>
+	
 	<?php } else {
-echo "Your shopping Cart is empty";
+echo "Welcome! Your shopping Cart is empty";
 		}?>
 </div>			</div>
 		</div> 
