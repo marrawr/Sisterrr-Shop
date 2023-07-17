@@ -5,30 +5,14 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
-else{
-date_default_timezone_set('Asia/Kolkata');// change according timezone
-$currentTime = date( 'd-m-Y h:i:s A', time () );
-
-if(isset($_GET['del']))
-		  {
-		          mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Product deleted !!";
-		  }
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Manager | Sales Report</title>
-	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link type="text/css" href="css/theme.css" rel="stylesheet">
-	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
-</head>
-<body>
+
+<?php 
+$date_start = isset($_GET['date_start']) ? $_GET['date_start'] :  date("Y-m-d",strtotime(date("Y-m-d")." -7 days")) ;
+$date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
+?>
+
+<title>Manager | Sales Report</title>
 <?php include('include/header.php');?>
 
         
@@ -36,7 +20,7 @@ if(isset($_GET['del']))
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-<?php include('include/sidebar.php');?>				
+	<?php include('include/sidebar.php');?>				
 			<div class="span9">
 					<div class="content">
 
@@ -45,45 +29,32 @@ if(isset($_GET['del']))
 								<h3>Generate Report</h3>
 							</div>
 							<div class="module-body table">
-	<?php if(isset($_GET['del']))
-{?>
-									<div class="alert alert-error">
-										<button type="button" class="close" data-dismiss="alert">×</button>
-									<strong>Oh snap!</strong> 	<?php echo htmlentities($_SESSION['delmsg']);?><?php echo htmlentities($_SESSION['delmsg']="");?>
-									</div>
-<?php } ?>
 
 									<br />
     
     
     
-<form class="form-horizontal row-fluid" name="bwdatesdata" action="" method="post" action="">
+<form class="form-horizontal row-fluid" id="filter-form" name="bwdatesdata" action="" method="post" action="">
 	
 <div class="control-group">
-<label class="control-label" for="basicinput">From Date :</label>
+<label for="date_start" style="margin-left:20px;">From Date :</label>
 <div class="controls">
-<input type="date" name="fdate" class="form-control" id="fdate">
+<input type="date" class="form-control" name="date_start" value="<?php echo date("Y-m-d",strtotime($date_start)) ?>">
 </div>
 </div>
 
 <div class="control-group">
-<label class="control-label" for="basicinput">To Date :</label>
+<label for="date_start" style="margin-left:20px;">To Date :</label>
 <div class="controls">
-<input type="date" name="tdate" class="form-control" id="tdate">
+<input type="date" class="form-control" name="date_end" value="<?php echo date("Y-m-d",strtotime($date_end)) ?>">
 </div>
 </div>
 
-<div class="control-group">
-<label class="control-label" scope="row">Request Type :</label>
-<div class="controls">
-<input type="radio" name="requesttype" value="mtwise" checked="true">Month wise</td>
-<input type="radio" name="requesttype" value="yrwise">Year wise</td>
-</div>
-</div>
 
 <div class="control-group">
 <div class="controls">
-<button type="submit" name="submit" class="btn">Submit</button></td>
+<button class="btn btn-info btn-sm" ><i class="glyphicon glyphicon-filter"></i> Generate</button>
+<button class="btn btn-success btn-sm" type="button" id="printt"><i class="glyphicon glyphicon-print"></i> Print</button>
 </div>
 </div>
      </form>
@@ -92,146 +63,61 @@ if(isset($_GET['del']))
 
 </div><!--/.content-->
 
-<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" width="100%">
-									
+<h6 class="page-header"></h6>
 
+<div class="module" id="print_doc">
+<div class="container-fluid">
+<table class="table table-bordered" style="margin-left:20px; margin: right 50%; margin-top:20px; margin-bottom:40px;">
 
-    <div class="row">
-      <div class="col-xs-12">
-      	 <?php
-      	 if(isset($_POST['submit']))
-{ 
-$fdate=$_POST['fdate'];
-$tdate=$_POST['tdate'];
-$rtype=$_POST['requesttype'];
-?>
-<?php if($rtype=='mtwise'){
-$month1=strtotime($fdate);
-$month2=strtotime($tdate);
-$m1=date("F",$month1);
-$m2=date("F",$month2);
-$y1=date("Y",$month1);
-$y2=date("Y",$month2);
-    ?>
-    
-    <div class="span9">
-					<div class="content">
-
-	<div class="module">
-							<div class="module-head">
-                            <h3>Sales Report Month Wise</h3>
-							</div>
-							<div class="module-body table">
-  
-
-
-<h4 align="center" style="color:chocolate">Sales Report  from <?php echo $m1."-".$y1;?> to <?php echo $m2."-".$y2;?></h4>
-<hr >
-<div class="row">
-<table class="table table-bordered" width="100%"  border="0" style="padding-left:40px">
-<th>S.NO</th>
-<th>Month / Year </th>
-<th>Sales</th>
-
-
-
-<?php
-$ret=mysqli_query($con,"select month(orderDate) as onemonth, year(orderDate) as oneyear,
-products.productPrice,orders.quantity from orders 
-join products on products.id=orders.productId 
-where date(orders.orderDate) between '$fdate' and '$tdate' 
-group by onemonth, oneyear");
-$num=mysqli_num_rows($ret);
-if($num>0){
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
- 
-?>
-<tbody>
-<tr>
-        <td><?php echo $cnt;?></td>
-        <td><?php  echo $row['onemonth']."/".$row['oneyear'];?></td>
-        <td><?php  echo $total=$row['productPrice']*$row['quantity'];?></td>
-</tr>
-<?php
-$ftotal+=$total;
-$cnt++;
-}?>
-
-              <td colspan="2" align="center">Total </td>
-              <td><?php  echo $ftotal;?></td>
-                </tr>             
-               </tbody>
-</table>
-
-<table>
-<?php } } else {
-$year1=strtotime($fdate);
-$year2=strtotime($tdate);
-$y1=date("Y",$year1);
-$y2=date("Y",$year2);
-?>
-<div class="span9">
-					<div class="content">
-
-	<div class="module">
-							<div class="module-head">
-                            <h3>Sales Report Year Wise</h3>
-							</div>
-							<div class="module-body table">
-
-<h4 align="center" style="color:chocolate">Sales Report  from <?php echo $y1;?> to <?php echo $y2;?></h4>
-        <hr >
-<div class="row">
-<table class="table table-bordered" width="100%"  border="0" style="padding-left:40px">
 <thead>
-<th>S.NO</th>
-<th>Year </th>
-<th>Sales</th>
-
+<th>#</th>
+<th>Product Name</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Order Date</th>
+<th>Payment Method</th>
 </thead>
-<?php
 
-$ret=mysqli_query($con,"select month(orderDate) as onemonth, year(orderDate) as oneyear,
-products.productPrice, orders.quantity from orders 
-join products on products.ID=orders.productId 
-where date(orders.orderDate) between '$fdate' and '$tdate'
-group by oneyear ");
-
-$num=mysqli_num_rows($ret);
-if($num>0){
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
-?>
 <tbody>
-<tr>
-<td><?php echo $cnt;?></td>
-<td><?php  echo $row['oneyear'];?></td>
-<td><?php  echo $total=$row['productPrice']*$row['quantity'];?></td>
-</tr>
-<?php
-$ftotal+=$total;
-$cnt++;
-}?>
-<tr>
-<td colspan="2" align="center">Total </td>
-<td><?php  echo $ftotal;?></td>
-</tr>             
- </tbody>
-</table>  <?php } } }?>  
+<?php 
+                            $g_total = 0;
+                            $i = 1;
+                            $stock = $con->query("SELECT * FROM `orders` inner join `products` ON orders.productid = products.id where date(orderDate) between '{$date_start}' and '{$date_end}' order by unix_timestamp(orderDate)");
+                            while($row = $stock->fetch_assoc()):
+                               
+                            ?>
 
-</table>
+							<tr>
+                                <td class="px-1 py-1 align-middle text-center"><?= $i++ ?></td>
+                                <td class="px-1 py-1 align-middle"><?= $row['productName'] ?></td>
+                                <td class="px-1 py-1 align-middle"><?= $row['productPrice'] ?></td>
+                                <td class="px-1 py-1 align-middle"><?= $row['quantity'] ?></td>
+                                <td class="px-1 py-1 align-middle"><?= $row['orderDate'] ?></td>
+								<td class="px-1 py-1 align-middle"><?= $row['paymentMethod'] ?></td>
+
+                            </tr>
+                            <?php endwhile; ?>
+                            <?php if($stock->num_rows <= 0): ?>
+                                <tr>
+                                    <td class="py-1 text-center" colspan="6">..No Records Found..</td>
+                                </tr>
+                            <?php endif; ?>
+</tbody>
+</table>  
+</div>
+</div>
+</div>
 	
 				
 				</div><!--/.content-->
 			</div><!--/.span9-->
 		</div><!--/.container-->
+		</div>
 		
 	</div>
 	</div><!--/.wrapper-->
 
 	
-
 
 <?php include('include/footer.php');?>
 
@@ -240,15 +126,96 @@ $cnt++;
 	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
 	<script src="scripts/datatables/jquery.dataTables.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('.datatable-1').dataTable();
-			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
-			$('.dataTables_paginate > a').wrapInner('<span />');
-			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
-		} );
-	</script>
 	
-</body>
-<?php } ?>
+
+<noscript id="print-header">
+    <div>
+        <style>
+            html{
+                min-height:unset !important;
+            }
+        </style>
+        <div class="d-flex w-100 align-items-center">
+            <div class="col-2 text-center">
+                <h1 class="text-center m-0"><b>TUDUNG REPORT</b></h1>
+               
+            </div>
+            <div class="col-8">
+                <div style="line-height:1em">
+                    <div class="text-center font-weight-bold h5 mb-0"><h3>Sales Report</h3></div>
+                    <?php if($date_start != $date_end): ?>
+                    <p class="text-center m-0">Date Between <?php echo date("M d,Y", strtotime($date_start)) ?> and <?php echo date("M d,Y", strtotime($date_end)) ?></p>
+                    <?php else: ?>
+                    <p class="text-center m-0">As of <?php echo date("M d,Y", strtotime($date_start)) ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</noscript>
+
+<script>
+    function print_r(){
+        var h = $('head').clone()
+        var el = $('#printout').clone()
+        var ph = $($('noscript#print-header').html()).clone()
+        h.find('title').text("Daily Sales Report - Print View")
+        var nw = window.open("", "_blank", "width="+($(window).width() * .8)+",left="+($(window).width() * .1)+",height="+($(window).height() * .8)+",top="+($(window).height() * .1))
+            nw.document.querySelector('head').innerHTML = h.html()
+            nw.document.querySelector('body').innerHTML = ph[0].outerHTML
+            nw.document.querySelector('body').innerHTML += el[0].outerHTML
+            nw.document.close()
+           
+            setTimeout(() => {
+                nw.print()
+                setTimeout(() => {
+                    nw.close()
+                    end_loader()
+                }, 200);
+            }, 300);
+    }
+    $(function(){
+        $('#filter-form').submit(function(e){
+            e.preventDefault()
+            location.href = '?page=reports&'+$(this).serialize()
+        })
+        $('#print').click(function(){
+            print_r()
+        })
+
+    })
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $("#printt").click(function() {
+            // Open a new window for printing
+            var printWindow = window.open("", "_blank");
+
+            // Build the printable content
+            var printableContent = `
+			<link rel="stylesheet" href="css/bootstrap.min.css">
+			` + document.getElementById("print-header").innerHTML + `
+			` + document.getElementById("print_doc").outerHTML + `
+                 
+                 </div>
+                </div>
+                </body>
+                </html>
+            `;
+
+
+            // Write the printable content to the new window, open it and print it
+            printWindow.document.open();
+            printWindow.document.write(printableContent);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+
+
+        });
+    });
+</script>

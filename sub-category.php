@@ -150,7 +150,7 @@ while($row=mysqli_fetch_array($sql))
 	<div id="category" class="category-carousel hidden-xs">
 		<div class="item">	
 			<div class="image">
-				<img src="assets/images/banners/cat-banner-2.jpg" alt="" class="img-responsive">
+				<img src="assets/images/banners/cat-banner-5.jpg" alt="" class="img-responsive">
 			</div>
 			<div class="container-fluid">
 				<div class="caption vertical-top text-left">
