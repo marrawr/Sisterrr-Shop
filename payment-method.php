@@ -1,20 +1,51 @@
-<?php 
+<?php
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['login'])==0)
-    {   
-header('location:login.php');
+
+// if(strlen($_SESSION['login'])==0)
+//     {   
+// header('location:login.php');
+// }
+// else{
+// 	if (isset($_POST['submit'])) {
+
+// 		mysqli_query($con,"update orders set 	paymentMethod='".$_POST['paymethod']."' where userId='".$_SESSION['id']."' and paymentMethod is null ");
+// 		unset($_SESSION['cart']);
+// 		header('location:order-history.php');
+
+// 	}
+
+if (strlen($_SESSION['login']) == 0) {
+    header('location:login.php');
+} else {
+    if (isset($_POST['submit'])) {
+        $paymentMethod = $_POST['paymethod'];
+
+        // Update the payment method in the database
+        mysqli_query($con, "UPDATE orders SET paymentMethod='" . $paymentMethod . "' WHERE userId='" . $_SESSION['id'] . "' AND paymentMethod IS NULL");
+
+        // Redirect based on the payment method
+        if ($paymentMethod === 'COD') {
+            header('location:order-history.php');
+        } elseif ($paymentMethod === 'Internet Banking') {
+            // Redirect to the payment gateway page
+            // Replace 'payment_gateway_page.php' with the actual URL of the payment gateway page
+            header('location:payment-gateway/index.php');
+        } else {
+            // Handle other payment methods here if needed
+            // Redirect to a default page or show an error message
+            header('location:default_page.php');
+        }
+
+        // Make sure to exit the script after redirection
+        exit;
+    }
 }
-else{
-	if (isset($_POST['submit'])) {
-
-		mysqli_query($con,"update orders set 	paymentMethod='".$_POST['paymethod']."' where userId='".$_SESSION['id']."' and paymentMethod is null ");
-		unset($_SESSION['cart']);
-		header('location:order-history.php');
-
-	}
 ?>
+
+<!-- The rest of your HTML code remains the same -->
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -93,13 +124,14 @@ else{
 	    <div class="panel-body">
 	    <form name="payment" method="post">
 	    <input type="radio" name="paymethod" value="COD" checked="checked"> COD
-	     <input type="radio" name="paymethod" value="Internet Banking"> Internet Banking
-	     <input type="radio" name="paymethod" value="Debit / Credit card"> Debit / Credit card <br /><br />
+	     <input type="radio" name="paymethod" value="Internet Banking"> Internet Banking <br /><br />
+	     <!-- <input type="radio" name="paymethod" value="Debit / Credit card"> Debit / Credit card <br /><br /> -->
 	     <input type="submit" value="submit" name="submit" class="btn btn-primary">
 	    	
 
 	    </form>		
 		</div>
+		
 		<!-- panel-body  -->
 
 	</div><!-- row -->
@@ -155,4 +187,4 @@ else{
 
 </body>
 </html>
-<?php } ?>
+<?php  ?>

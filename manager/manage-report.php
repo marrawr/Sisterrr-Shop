@@ -71,38 +71,51 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 
 <thead>
 <th>#</th>
-<th>Product Name</th>
-<th>Price</th>
-<th>Quantity</th>
 <th>Order Date</th>
 <th>Payment Method</th>
+<th>Product Name</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Shipping Price</th>
+<th>Sub Total</th>
 </thead>
 
 <tbody>
+<tbody>
 <?php 
-                            $g_total = 0;
-                            $i = 1;
-                            $stock = $con->query("SELECT * FROM `orders` inner join `products` ON orders.productid = products.id where date(orderDate) between '{$date_start}' and '{$date_end}' order by unix_timestamp(orderDate)");
-                            while($row = $stock->fetch_assoc()):
-                               
-                            ?>
+$g_total = 0;
+$i = 1;
+$stock = $con->query("SELECT * FROM `orders` inner join `products` ON orders.productid = products.id where date(orderDate) between '{$date_start}' and '{$date_end}' order by unix_timestamp(orderDate)");
+while($row = $stock->fetch_assoc()):
+$subtotal = $row['quantity'] * $row['productPrice'] + $row['shippingCharge'];
+$g_total += $subtotal;
 
-							<tr>
-                                <td class="px-1 py-1 align-middle text-center"><?= $i++ ?></td>
-                                <td class="px-1 py-1 align-middle"><?= $row['productName'] ?></td>
-                                <td class="px-1 py-1 align-middle"><?= $row['productPrice'] ?></td>
-                                <td class="px-1 py-1 align-middle"><?= $row['quantity'] ?></td>
-                                <td class="px-1 py-1 align-middle"><?= $row['orderDate'] ?></td>
-								<td class="px-1 py-1 align-middle"><?= $row['paymentMethod'] ?></td>
+?>
 
-                            </tr>
-                            <?php endwhile; ?>
-                            <?php if($stock->num_rows <= 0): ?>
-                                <tr>
-                                    <td class="py-1 text-center" colspan="6">..No Records Found..</td>
-                                </tr>
-                            <?php endif; ?>
+<tr>
+    <td class="px-1 py-1 align-middle text-center"><?= $i++ ?></td>
+    <td class="px-1 py-1 align-middle"><?= $row['orderDate'] ?></td>
+    <td class="px-1 py-1 align-middle"><?= $row['paymentMethod'] ?></td>
+    <td class="px-1 py-1 align-middle"><?= $row['productName'] ?></td>
+    <td class="px-1 py-1 align-middle"><?= $row['quantity'] ?></td>
+    <td class="px-1 py-1 align-middle"><?= $row['productPrice'] ?></td>
+    <td class="px-1 py-1 align-middle"><?= $row['shippingCharge'] ?></td>
+
+    
+    <td class="px-1 py-1 align-middle"><?= $subtotal ?></td>
+</tr>
+<?php endwhile; ?>
+<?php if($stock->num_rows <= 0): ?>
+    <tr>
+        <td class="py-1 text-center" colspan="8">..No Records Found..</td>
+    </tr>
+<?php endif; ?>
+<tr>
+    <td colspan="7" align="right"><b>Grand Total:</b></td>
+    <td><?= $g_total ?></td>
+</tr>
 </tbody>
+
 </table>  
 </div>
 </div>
