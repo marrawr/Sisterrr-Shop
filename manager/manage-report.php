@@ -13,6 +13,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 ?>
 
 <title>Manager | Sales Report</title>
+
 <?php include('include/header.php');?>
 
         
@@ -37,16 +38,16 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 <form class="form-horizontal row-fluid" id="filter-form" name="bwdatesdata" action="" method="post" action="">
 	
 <div class="control-group">
-<label for="date_start" style="margin-left:20px;">From Date :</label>
+<label class="control-label" for="date_start">From Date</label>
 <div class="controls">
-<input type="date" class="form-control" name="date_start" value="<?php echo date("Y-m-d",strtotime($date_start)) ?>">
+<input type="date" class="span8 tip" name="date_start" value="<?php echo date("Y-m-d",strtotime($date_start)) ?>">
 </div>
 </div>
 
 <div class="control-group">
-<label for="date_start" style="margin-left:20px;">To Date :</label>
+<label class="control-label" for="date_start">To Date</label>
 <div class="controls">
-<input type="date" class="form-control" name="date_end" value="<?php echo date("Y-m-d",strtotime($date_end)) ?>">
+<input type="date" class="span8 tip" name="date_end" value="<?php echo date("Y-m-d",strtotime($date_end)) ?>">
 </div>
 </div>
 
@@ -54,7 +55,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 <div class="control-group">
 <div class="controls">
 <button class="btn btn-info btn-sm" ><i class="glyphicon glyphicon-filter"></i> Generate</button>
-<button class="btn btn-success btn-sm" type="button" id="printt"><i class="glyphicon glyphicon-print"></i> Print</button>
+<button class="btn btn-success btn-sm" type="button" id="printt"><i class="glyphicon glyphicon-print" ></i> Print</button>
 </div>
 </div>
      </form>
@@ -64,11 +65,13 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 </div><!--/.content-->
 
 <h6 class="page-header"></h6>
-
 <div class="module" id="print_doc">
-<div class="container-fluid">
-<table class="table table-bordered" style="margin-left:20px; margin: right 50%; margin-top:20px; margin-bottom:40px;">
-
+<div class="module">
+							<div class="module-head">
+								<h3>Sales Reports</h3>
+							</div>   
+<div class="module-body table">
+	<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
 <thead>
 <th>#</th>
 <th>Order Date</th>
@@ -133,6 +136,7 @@ $g_total += $subtotal;
 	
 
 <?php include('include/footer.php');?>
+
 
 	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
@@ -199,8 +203,8 @@ $g_total += $subtotal;
 
     })
 </script>
-
-
+<link type="text/css" rel="stylesheet" href="assets/plugins/bootstrap-datepicker/css/datepicker.css">
+	<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script>
     $(document).ready(function() {
         $("#printt").click(function() {
