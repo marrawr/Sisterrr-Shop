@@ -184,11 +184,11 @@ echo htmlentities($_SESSION['errmsg']="");
 	</span>
 		<div class="form-group">
 		    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-		    <input type="email" name="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" >
+		    <input type="email" name="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="user@gmail.com" >
 		</div>
 	  	<div class="form-group">
 		    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-		 <input type="password" name="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" >
+		 <input type="password" name="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="123@abc" >
 		</div>
 		<div class="radio outer-xs">
 		  	<a href="forgot-password.php" class="forgot-password pull-right">Forgot your Password?</a>
@@ -205,7 +205,7 @@ echo htmlentities($_SESSION['errmsg']="");
 	<form class="register-form outer-top-xs" role="form" method="post" name="register" onSubmit="return valid();">
 <div class="form-group">
 	    	<label class="info-title" for="fullname">Full Name <span>*</span></label>
-	    	<input type="text" class="form-control unicase-form-control text-input" id="fullname" name="fullname" required="required">
+	    	<input type="text" class="form-control unicase-form-control text-input" id="fullname" name="fullname" required="required" placeholder="user@gmail.com">
 	  	</div>
 
 

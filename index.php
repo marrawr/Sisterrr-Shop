@@ -137,7 +137,7 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 							<h4 class="info-box-heading orange">free shipping</h4>
 						</div>
 					</div>
-					<h6 class="text">free ship-on oder over RM. 50.00</h6>	
+					<h6 class="text">free ship-on oder over RM 50.00</h6>	
 				</div>
 			</div><!-- .col -->
 
@@ -209,8 +209,8 @@ while ($row=mysqli_fetch_array($ret))
 
 			<div class="product-price">	
 				<span class="price">
-					RM.<?php echo htmlentities($row['productPrice']);?>			</span>
-										     <span class="price-before-discount">RM.<?php echo htmlentities($row['productPriceBeforeDiscount']);?>	</span>
+					RM<?php echo htmlentities($row['productPrice']);?>			</span>
+										     <span class="price-before-discount">RM<?php echo htmlentities($row['productPriceBeforeDiscount']);?>	</span>
 									
 			</div><!-- /.product-price -->
 			
@@ -266,7 +266,7 @@ while ($row=mysqli_fetch_array($ret))
 
 			<div class="product-price">	
 				<span class="price">
-					RM. <?php echo htmlentities($row['productPrice']);?>			</span>
+					RM<?php echo htmlentities($row['productPrice']);?>			</span>
 										     <span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']);?></span>
 									
 			</div><!-- /.product-price -->
