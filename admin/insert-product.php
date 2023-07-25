@@ -132,6 +132,13 @@ while($row=mysqli_fetch_array($query))
 <label class="control-label" for="basicinput">Sub Category</label>
 <div class="controls">
 <select   name="subcategory"  id="subcategory" class="span8 tip" required>
+<option value="">Select Category</option> 
+<?php $query=mysqli_query($con,"select * from subcategory");
+while($row=mysqli_fetch_array($query))
+{?>
+
+<option value="<?php echo $row['id'];?>"><?php echo $row['subcategory'];?></option>
+<?php } ?>
 </select>
 </div>
 </div>
