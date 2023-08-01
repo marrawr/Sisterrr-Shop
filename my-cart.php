@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+
 include('includes/config.php');
 if (isset($_POST['submit'])) {
 	if (!empty($_SESSION['cart'])) {
@@ -29,24 +29,24 @@ if (isset($_POST['remove_code'])) {
 
 
 if (isset($_POST['ordersubmit'])) {
-
+	
 	if (strlen($_SESSION['login']) == 0) {
 		header('location:login.php');
-	} else {
+	}else{$pref = date("Ymd");
+    
+	$ref = rand(1000, 99999);
+    $code = $pref . $ref;
+	$_SESSION['track'] = $code;
 
-		$quantity = $_POST['quantity'];
-		$pdd = $_SESSION['pid'];
-		$value = array_combine($pdd, $quantity);
+    $quantity = $_POST['quantity'];
+    $pdd = $_SESSION['pid'];
+    $value = array_combine($pdd, $quantity);
 
-
-		foreach ($value as $qty => $val34) {
-
-
-
-			mysqli_query($con, "insert into orders(userId,productId,quantity) values('" . $_SESSION['id'] . "','$qty','$val34')");
-			header('location:payment-method.php');
-		}
-	}
+    foreach ($value as $qty => $val34) {
+        mysqli_query($con, "INSERT INTO orders (userId,trackorder, productId, quantity,totalprice) VALUES ('". $_SESSION['id']."','". $_SESSION['track']."', '$qty', '$val34','".$_SESSION['totalprice']."')");
+    }
+}
+	header('Location: payment-method.php?customerid=' . $_SESSION['id'] . '&totalprice=' . $_SESSION['totalprice']);
 }
 
 // code for billing address updation
@@ -205,7 +205,7 @@ if (isset($_POST['shipupdate'])) {
 													$subtotal = $_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice'] + $row['shippingCharge'];
 													$totalprice += $subtotal;
 													$_SESSION['qnty'] = $totalqunty += $quantity;
-
+													$_SESSION['totalprice'] = $totalprice;
 													array_push($pdtid, $row['id']);
 													//print_r($_SESSION['pid'])=$pdtid;exit;
 											?>
@@ -245,6 +245,7 @@ if (isset($_POST['shipupdate'])) {
 																	<div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 																</div>
 																<input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]">
+																<input type="hidden" name="totalprice[<?php echo $totalprice; ?>]">
 
 															</div>
 														</td>
@@ -391,7 +392,7 @@ class="info-title" for="Billing Pincode">Billing Pincode <span>*</span></label>
 								<tr>
 									<td>
 										<div class="cart-checkout-btn pull-right">
-											<button type="submit" name="ordersubmit" class="btn btn-primary">PROCCED TO CHEKOUT</button>
+											<button type="submit" name="ordersubmit" class="btn btn-primary">PROCEED TO CHEKOUT</button>
 
 										</div>
 									</td>

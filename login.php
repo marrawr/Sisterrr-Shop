@@ -205,29 +205,29 @@ echo htmlentities($_SESSION['errmsg']="");
 	<form class="register-form outer-top-xs" role="form" method="post" name="register" onSubmit="return valid();">
 <div class="form-group">
 	    	<label class="info-title" for="fullname">Full Name <span>*</span></label>
-	    	<input type="text" class="form-control unicase-form-control text-input" id="fullname" name="fullname" required="required" placeholder="user@gmail.com">
+	    	<input type="text" class="form-control unicase-form-control text-input" id="fullname" name="fullname" required="required" placeholder="mardiana">
 	  	</div>
 
 
 		<div class="form-group">
 	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
-	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="userAvailability()" name="emailid" required >
+	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="userAvailability()" name="emailid" required placeholder="mar@gmail.com">
 	    	       <span id="user-availability-status1" style="font-size:12px;"></span>
 	  	</div>
 
 <div class="form-group">
 	    	<label class="info-title" for="contactno">Contact No. <span>*</span></label>
-	    	<input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" maxlength="10" required >
+	    	<input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" maxlength="10" required placeholder="0113162383">
 	  	</div>
 
 <div class="form-group">
 	    	<label class="info-title" for="password">Password. <span>*</span></label>
-	    	<input type="password" class="form-control unicase-form-control text-input" id="password" name="password"  required >
+	    	<input type="password" class="form-control unicase-form-control text-input" id="password" name="password"  required placeholder="123@abc">
 	  	</div>
 
 <div class="form-group">
 	    	<label class="info-title" for="confirmpassword">Confirm Password. <span>*</span></label>
-	    	<input type="password" class="form-control unicase-form-control text-input" id="confirmpassword" name="confirmpassword" required >
+	    	<input type="password" class="form-control unicase-form-control text-input" id="confirmpassword" name="confirmpassword" required placeholder="123@abc">
 	  	</div>
 
 

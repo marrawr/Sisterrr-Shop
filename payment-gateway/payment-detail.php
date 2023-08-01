@@ -1,17 +1,28 @@
 <html lang="en">
 <?php
-
-include("../config.php");
+session_start();
+include('../includes/config.php');
 $bank = $_SESSION['payment'];
 
-$sql = $conn->query("SELECT * FROM bank where id=$bank");
+
+$sql = $con->query("SELECT * FROM bank where id=$bank");
 foreach ($sql->fetch_array() as $k => $val) {
   $$k = $val;
 }
+?>
 
-$sql2 = $conn->query("SELECT * FROM cart_list where customer_id=" . $_SESSION['customerid']);
-foreach ($sql2->fetch_array() as $l => $value) {
-  $$l = $value;
+<?php
+$customertt = $_SESSION['customerid'];
+$qry = $con->query("SELECT * from `users` inner join `dummybank` ON users.id=dummybank.customer_id where customer_id=$customertt ");
+if ($qry) {
+  // Fetch data using a while loop
+  while ($row = $qry->fetch_array()) {
+    // Access data using column names or indices
+    $accountNumber = $row['accountNo'];
+  }
+} else {
+  // Query was not successful, handle the error
+  echo "Error executing the query: " . $con->error;
 }
 ?>
 
@@ -22,7 +33,7 @@ foreach ($sql2->fetch_array() as $l => $value) {
   <title>Online Payment - <?php echo $name ?></title>
   <link rel="icon" href="bank-img/Bank-Islam.png">
   <link href="../fontawesome-free-6.0.0-web/css/all.css" rel="stylesheet">
-  <?php require('../inc/links.php'); ?>
+  <?php require('links.php'); ?>
 
 
 
@@ -66,7 +77,7 @@ foreach ($sql2->fetch_array() as $l => $value) {
                     <td class="p-3"></td>
                     <td class="p-3">From Account</td>
                     <td class="p-3">:</td>
-                    <td class="p-3">Saving Account - 019881772</td>
+                    <td class="p-3">Saving Account - <?php echo $accountNumber; ?></td>
                     <td class="p-3"></td>
                   </tr>
                   <tr>
@@ -132,7 +143,7 @@ foreach ($sql2->fetch_array() as $l => $value) {
             </div>
 
             <div class="card-footer " style="background-color:white;">
-              <a href="..//index.php?error=Payment Unsuccessful" class="btn text-dark pull-right mx-2  " style="background-color:<?php echo $color ?>; ">Cancel</a>
+              <a href="../pending-orders.php?error=Payment Unsuccessful" class="btn text-dark pull-right mx-2  " style="background-color:<?php echo $color ?>; ">Cancel</a>
               <a href="../payment-gateway/config.php?bank=<?php echo $bank ?>&payment=<?php echo $id ?>" class="btn text-dark pull-right" style="background-color:<?php echo $color ?>;">Confirm</a>
 
             </div>

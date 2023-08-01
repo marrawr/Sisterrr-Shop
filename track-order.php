@@ -51,6 +51,13 @@ $oid = intval($_GET['oid']);
     <h2 class="heading">Sister Shop's Tracking Order</h2> 
   </div> 
  
+  <?php 
+        $ret = mysqli_query($con, "SELECT * FROM orders WHERE id='$oid'"); 
+        $num = mysqli_num_rows($ret); 
+        if ($num > 0) { 
+          while ($row = mysqli_fetch_array($ret)) { 
+        ?> 
+
   <div style="margin-right: 50px;"> 
     <form name="updateticket" id="updateticket" method="post"> 
       <table width="100%" border="1" cellspacing="0" cellpadding="5"> 
@@ -62,24 +69,19 @@ $oid = intval($_GET['oid']);
         
  
         <tr height="30"> 
-          <td class="fontkink1"><b>Order Id:</b></td> 
-          <td class="fontkink"><?php echo $oid; ?></td> 
+          <td class="fontkink1"><b>Tracking no:</b></td> 
+          <td class="fontkink"><?php echo $row['trackorder']; ?></td> 
         </tr> 
  
-        <?php 
-        $ret = mysqli_query($con, "SELECT * FROM ordertrackhistory WHERE orderId='$oid'"); 
-        $num = mysqli_num_rows($ret); 
-        if ($num > 0) { 
-          while ($row = mysqli_fetch_array($ret)) { 
-        ?> 
+    
  
             <tr height="20"> 
               <td class="fontkink1"><b>At Date:</b></td> 
-              <td class="fontkink"><?php echo $row['postingDate']; ?></td> 
+              <td class="fontkink"><?php echo $row['orderDate']; ?></td> 
             </tr> 
             <tr height="20"> 
               <td class="fontkink1"><b>Status:</b></td> 
-              <td class="fontkink"><?php echo $row['status']; ?></td> 
+              <td class="fontkink"><?php echo $row['orderStatus']; ?></td> 
             </tr> 
             <tr height="20"> 
               <td class="fontkink1"><b>Remark:</b></td> 

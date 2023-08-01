@@ -1,6 +1,6 @@
 <?php 
 session_start();
-error_reporting(0);
+
 include('includes/config.php');
 if(strlen($_SESSION['login'])==0)
     {   
@@ -71,7 +71,7 @@ else{
 	
 		
 	
-		<!-- ============================================== HEADER ============================================== -->
+<!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
 <?php include('includes/top-header.php');?>
 <?php include('includes/main-header.php');?>
@@ -101,57 +101,42 @@ else{
 			<thead>
 				<tr>
 					<th class="cart-romove item">#</th>
-					<th class="cart-description item">Image</th>
-					<th class="cart-product-name item">Product Name</th>
-			
-					<th class="cart-qty item">Quantity</th>
-					<th class="cart-sub-total item">Price Per unit</th>
-						<th class="cart-sub-total item">Shiping Charge</th>
-					<th class="cart-total">Grandtotal</th>
+					<th class="cart-product-name item">Order Number</th>
 					<th class="cart-total item">Payment Method</th>
 					<th class="cart-description item">Order Date</th>
+					<th class="cart-description item">Status Payment</th>
 					<th class="cart-total last-item">Action</th>
 				</tr>
 			</thead><!-- /thead -->
 			
 			<tbody>
 
-<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as c,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is null");
+<?php $query=mysqli_query($con,"select distinct trackorder,orderDate,paymentMethod,statuspayment,totalprice from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod='Internet Banking' and statuspayment='Unpaid'");
 $cnt=1;
+
 $num=mysqli_num_rows($query);
 if($num>0)
 {
 while($row=mysqli_fetch_array($query))
 {
 ?>
+
 				<tr>
 					<td><?php echo $cnt;?></td>
-					<td class="cart-image">
-						<a class="entry-thumbnail" href="detail.html">
-						    <img src="admin/productimages/<?php echo $row['proid'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
-						</a>
-					</td>
 					<td class="cart-product-name-info">
-						<h4 class='cart-product-description'><a href="product-details.php?pid=<?php echo $row['opid'];?>">
-						<?php echo $row['pname'];?></a></h4>
 						
-						
+						<?php echo $row['trackorder'];?></a></h4>
 					</td>
-					<td class="cart-product-quantity">
-						<?php echo $qty=$row['qty']; ?>   
-		            </td>
-					<td class="cart-product-sub-total"><?php echo $price=$row['pprice']; ?>  </td>
-					<td class="cart-product-sub-total"><?php echo $shippcharge=$row['shippingcharge']; ?>  </td>
-					<td class="cart-product-grand-total"><?php echo (($qty*$price)+$shippcharge);?></td>
-					<td class="cart-product-sub-total"><?php echo $row['paym']; ?>  </td>
-					<td class="cart-product-sub-total"><?php echo $row['odate']; ?>  </td>
+					<td class="cart-product-sub-total"><?php echo $row['paymentMethod']; ?>  </td>
+					<td class="cart-product-sub-total"><?php echo $row['orderDate']; ?>  </td>
+					<td class="cart-product-sub-total"><?php echo $row['statuspayment']; ?>  </td>
 					
-					<td><a href="pending-orders.php?id=<?php echo $row['oid']; ?> ">Delete</td>
+					<td><a href="payment-gateway/index.php?bank=1&id=1&totalprice=<?php echo $row['totalprice'];?>&customerid=<?php echo $_SESSION['id'];?>&trackorder=<?php echo $row['trackorder'];?>">Payment Now</td>
 				</tr>
 <?php $cnt=$cnt+1;} ?>
 <tr>
 	<td colspan="9"><div class="cart-checkout-btn pull-right">
-							<button type="submit" name="ordersubmit" class="btn btn-primary"><a href="payment-method.php">PROCCED To Payment</a></button>
+							<!-- <button type="submit" name="ordersubmit" class="btn btn-primary"><a href="payment-method.php">PROCCED To Payment</a></button> -->
 						
 						</div></td>
 

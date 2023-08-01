@@ -1,13 +1,15 @@
 <html lang="en">
 <?php
+
 include_once 'config.php';
 $bank = $_GET['bank'];
 $id = $_GET['id'];
-$customer_id = $_GET['id'];
-$totalprice = $_GET['totalp'];
-$totalrev = $_GET['totalrev'];
+$customer_id = $_GET['customerid'];
+$totalprice = $_GET['totalprice'];
+$trackorder = $_GET['trackorder'];
 
-$sql = $conn->query("SELECT * FROM bank where id=$bank");
+
+$sql = $con->query("SELECT * FROM bank where id=$bank");
 foreach ($sql->fetch_array() as $k => $val) {
   $$k = $val;
 }
@@ -20,7 +22,7 @@ foreach ($sql->fetch_array() as $k => $val) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Online Payment - <?php echo $name ?></title>
   <link rel="icon" href="bank-img/Bank-Islam.png">
-  <?php require('../inc/links.php'); ?>
+  <?php require('links.php'); ?>
 
 </head>
 <section class="vh-100 gradient-custom s">
@@ -43,10 +45,9 @@ foreach ($sql->fetch_array() as $k => $val) {
 
                 <input type="username" class="form-control form-control-user" name="username" placeholder="Username" required>
                 <input type="hidden" class="form-control form-control-user" name="Booking_no" value="<?php echo $_GET['id'] ?>">
-                <input type="hidden" class="form-control form-control-user" name="address" value="<?php echo $_GET['address'] ?>">
-                <!-- <input type="hidden" class="form-control form-control-user" name="totalp" value="<?php echo $totalprice ?>"> -->
+                <input type="hidden" class="form-control form-control-user" name="totalp" value="<?php echo $totalprice ?>">
                 <input type="hidden" class="form-control form-control-user" name="customerid" value="<?php echo $customer_id ?>">
-                <!-- <input type="hidden" class="form-control form-control-user" name="totalrev" value="<?php echo $totalrev ?>"> -->
+                <input type="hidden" class="form-control form-control-user" name="trackorder" value="<?php echo $trackorder ?>">
 
               </div>
 
@@ -64,7 +65,7 @@ foreach ($sql->fetch_array() as $k => $val) {
                   </div>
 
                   <div class="col">
-                    <a class="btn btn-outline-dark btn-user btn-block" href='../?p=checkout'>Cancel</a>
+                    <a class="btn btn-outline-dark btn-user btn-block" href='../pending-orders.php'>Cancel</a>
                   </div>
 
                 </div>

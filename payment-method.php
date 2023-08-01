@@ -1,7 +1,8 @@
 <?php
 session_start();
-error_reporting(0);
+
 include('includes/config.php');
+
 
 // if(strlen($_SESSION['login'])==0)
 //     {   
@@ -21,17 +22,18 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     if (isset($_POST['submit'])) {
         $paymentMethod = $_POST['paymethod'];
-
+			
         // Update the payment method in the database
-        mysqli_query($con, "UPDATE orders SET paymentMethod='" . $paymentMethod . "' WHERE userId='" . $_SESSION['id'] . "' AND paymentMethod IS NULL");
-
+        mysqli_query($con, "UPDATE orders SET paymentMethod='" . $paymentMethod . "', statuspayment='Unpaid' WHERE userId='" . $_SESSION['id'] . "' AND paymentMethod IS NULL");
+		unset($_SESSION['cart']);
         // Redirect based on the payment method
         if ($paymentMethod === 'COD') {
             header('location:order-history.php');
         } elseif ($paymentMethod === 'Internet Banking') {
             // Redirect to the payment gateway page
             // Replace 'payment_gateway_page.php' with the actual URL of the payment gateway page
-            header('location:payment-gateway/index.php');
+            header('Location: payment-gateway/index.php?bank=1&id=1&totalprice=' . $_SESSION['totalprice'] . '&customerid=' . $_SESSION['id']. '&trackorder=' . $_SESSION['track']);
+
         } else {
             // Handle other payment methods here if needed
             // Redirect to a default page or show an error message

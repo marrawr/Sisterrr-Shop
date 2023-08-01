@@ -23,7 +23,7 @@ $to=date('Y-m-d')." ".$t1;
 $num_rows1 = mysqli_num_rows($result);
 {
 ?>
-											
+											<b class="label orange pull-right"><?php echo htmlentities($num_rows1); ?></b>
 											<?php } ?>
 										</a>
 									</li>
@@ -31,14 +31,24 @@ $num_rows1 = mysqli_num_rows($result);
 										<a href="pending-orders.php">
 											<i class="icon-tasks"></i>
 											Pending Orders
-										
+										<?php	
+	$status='Delivered';									 
+$ret = mysqli_query($con,"SELECT * FROM Orders where orderStatus!='$status' || orderStatus is null ");
+$num = mysqli_num_rows($ret);
+{?><b class="label orange pull-right"><?php echo htmlentities($num); ?></b>
+<?php } ?>
 										</a>
 									</li>
 									<li>
 										<a href="delivered-orders.php">
 											<i class="icon-inbox"></i>
 											Delivered Orders
-								
+								<?php	
+	$status='Delivered';									 
+$rt = mysqli_query($con,"SELECT * FROM Orders where orderStatus='$status'");
+$num1 = mysqli_num_rows($rt);
+{?><b class="label green pull-right"><?php echo htmlentities($num1); ?></b>
+<?php } ?>
 
 										</a>
 									</li>

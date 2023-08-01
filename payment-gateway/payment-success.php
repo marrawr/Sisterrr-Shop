@@ -1,23 +1,34 @@
 <html lang="en">
 <?php
 
-error_reporting(0);
-include("../config.php");
+session_start();
+include('../includes/config.php');
 $bank = $_SESSION['payment'];
-$balance = '1000';
-$sql = $conn->query("SELECT * FROM bank where id=$bank");
+$balance = '0';
+$sql = $con->query("SELECT * FROM bank where id=$bank");
 foreach ($sql->fetch_array() as $k => $val) {
   $$k = $val;
 }
-$id = $_GET['id'];
-$sql2 = $conn->query("SELECT * FROM order_list where id=$id");
-foreach ($sql2->fetch_array() as $l => $value) {
-  $$l = $value;
-}
+
 $amount = $_SESSION['totalp'];
-$balance = 1000 - $amount;
+?>
 
+<?php
+$customertt = $_SESSION['customerid'];
+$qry = $con->query("SELECT * from `users` inner join `dummybank` ON users.id=dummybank.customer_id where customer_id=$customertt ");
+if ($qry) {
+  // Fetch data using a while loop
+  while ($row = $qry->fetch_array()) {
+    // Access data using column names or indices
+    $accountNumber = $row['accountNo'];
+    $balanceNumber = $row['balance'];
+  }
+} else {
+  // Query was not successful, handle the error
+  echo "Error executing the query: " . $con->error;
+}
 
+$balance = $balanceNumber - $amount;
 
 ?>
 
@@ -27,8 +38,16 @@ $balance = 1000 - $amount;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Online Payment - <?php echo $name ?></title>
   <link rel="icon" href="bank-img/Bank-Islam.png">
-  <?php require('../inc/links.php'); ?>
+  <?php require('links.php'); ?>
 
+  <!-- <script>
+    //to make popup only
+    function showPopupChat() {
+      // Replace this with your own popup chat implementation
+      // For example, you can use a modal or an alert box
+      alert("Successful Payment! Thank you for your purchase.");
+    }
+  </script> -->
 
 
 </head>
@@ -70,7 +89,7 @@ $balance = 1000 - $amount;
                     <td class="p-3"></td>
                     <td class="p-3">From Account</td>
                     <td class="p-3">:</td>
-                    <td class="p-3">Saving Account - 019881772</td>
+                    <td class="p-3">Saving Account - <?php echo $accountNumber; ?></td>
                     <td class="p-3"></td>
                   </tr>
                   <tr>
@@ -100,13 +119,15 @@ $balance = 1000 - $amount;
                 </tbody>
               </table>
 
-              <table </tr>
+              <table>
                 <tr>
-                  <td class="p-3"></td>
-                  <td class="p-3">Available Balance</td>
-                  <td class="p-3">:</td>
-                  <td class="p-3">MYR <?php echo $balance; ?>.00</td>
-                  <td class="p-3"></td>
+                  <form method="POST" action="update.php?idd=<?php echo $_SESSION['customerid']; ?>">
+                    <input type="hidden" name="balance" value="<?= $balance ?>">
+                    <td class="p-3"></td>
+                    <td class="p-3">Available Balance</td>
+                    <td class="p-3">:</td>
+                    <td class="p-3">MYR <?php echo $balance; ?>.00</td>
+                    <td class="p-3"></td>
                 </tr>
                 <tr>
                   <td class="p-3"></td>
@@ -129,16 +150,18 @@ $balance = 1000 - $amount;
             </div>
 
             <div class="card-footer " style="background-color:white;">
-              <a href="../?p=orders" class="btn text-dark pull-right mx-2  " style="background-color:<?php echo $color ?>; ">Complete</a>
+              <button type="submit" class="btn text-dark pull-right mx-2  " style="background-color:<?php echo $color ?>; ">Complete</button>
+              </form>
             </div>
+            <!-- <div class="card-footer " style="background-color:white;">
+              <a href="../?p=orders" class="btn text-dark pull-right mx-2" style="background-color:<?php echo $color ?>;" onclick="showPopupChat()">Complete</a>
+            </div> -->
 
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
 
 </body>
 
