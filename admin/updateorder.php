@@ -1,4 +1,5 @@
 <?php
+error_reporting(0); 
 session_start();
 
 include_once 'include/config.php';
@@ -101,12 +102,12 @@ $st='Delivered';
         </span></td>
     </tr>
 
-     <tr style=''>
+     <!-- <tr style=''>
       <td class="fontkink1" >Remark:</td>
       <td class="fontkink" align="justify" ><span class="fontkink">
         <textarea cols="50" rows="7" name="remark"  required="required" ></textarea>
         </span></td>
-    </tr>
+    </tr> -->
     <tr>
       <td class="fontkink1">&nbsp;</td>
       <td  >&nbsp;</td>

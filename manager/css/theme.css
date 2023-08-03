@@ -10,7 +10,7 @@ body {
 	font-size: 13px;
 	font-family: 'Open Sans', Arial, sans-serif;
 	background: #876345;
-	color: #777
+	color: #000
 }
 h1, h2, h3, h4, h5, h6 {
 	color: #333;
@@ -39,7 +39,7 @@ h6 {
 	font-size: 11px
 }
 strong, b {
-	color: #555
+	color: #ffffff
 }
 a:hover, a:focus {
 	outline: 0
@@ -67,15 +67,15 @@ blockquote small::before {
 }
 .text-muted {color: #999;}
 .wrapper {
-	background: url(../images/bg.png) #eee;
-	border-bottom: 1px solid #bbb;
+	background: url(../images/bg.png) #ffffff;
+	border-bottom: 1px solid #ffffff;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 	box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 	padding: 30px 0
 }
 .footer {
-	color: #999;
+	color: #876345;
 	padding: 30px 0 60px
 }
 .footer .nav li {
@@ -131,7 +131,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 	white-space: nowrap
 }
 body [class^="icon-"], body [class*=" icon-"] {
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 20px;
 	height: 20px
 }
@@ -186,23 +186,23 @@ body [class^="icon-"], body [class*=" icon-"] {
 	margin: 0!important
 }
 .navbar .navbar-inner {
-	background: #fff;
+	background: #876345;
 	border-bottom: 1px solid #bbb;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 	box-shadow: 0 1px 2px rgba(0,0,0,0.15)
 }
 .navbar .brand {
-	color: #333;
-	font-weight: bold;
+	color: #f9f9f9;
+	/* font-weight: bold; */
 	font-size: 20px;
 	margin-right: 20px;
 	padding: 20px
 }
 .navbar .nav>li>a {
 	padding: 20px 15px;
-	font-weight: bold;
-	color: #777
+	/* font-weight: bold; */
+	color: #ffffff
 }
 .navbar .nav>li.active , .navbar .nav>li.active , .navbar .nav>li.active, .navbar .nav>li:hover  {
 	background: #f9f9f9;
@@ -233,7 +233,7 @@ body [class^="icon-"], body [class*=" icon-"] {
 	display: none
 }
 .navbar .nav>li>.dropdown-menu li>a {
-	padding: 10px 20px
+	/* padding: 10px 20px */
 }
 .navbar .nav>li>.dropdown-menu li>a:hover {
 	background: #f9f9f9;
@@ -902,7 +902,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@topColor', end
 	 
 	margin-right: 10px;
 	 
-	color: #767676;
+	color: #fafafa;
 	 -webkit-transition: all .2s ease-in-out;
 -moz-transition: all .2s ease-in-out;
 transition: all .2s ease-in-out;
@@ -928,8 +928,8 @@ transition: all .2s ease-in-out;
 	border-top: 1px solid #555
 }
 .widget-menu>li>a {
-	background-color: #4B3832;
-	color: #b7b7b7;
+	background-color: #876345;
+	color: #fafafa;
 	-webkit-transition: all .2s ease-in-out;
 -moz-transition: all .2s ease-in-out;
 transition: all .2s ease-in-out;
@@ -947,7 +947,7 @@ transition: all .2s ease-in-out;
 	display: block
 }
 .widget-menu>li>a:hover {
-	background-color: #28262c;
+	background-color: #FABB17;
 	color: #fafafa;
 }
 
@@ -1112,7 +1112,7 @@ border-top-left-radius: 3px;
 	padding: 0
 }
 .stream.new-update a, .stream.load-more a {
-	background: #background: #f7f7f7;;
+	background: #f7f7f7;;
 	
 	color: #555;
 	font-weight: 600;

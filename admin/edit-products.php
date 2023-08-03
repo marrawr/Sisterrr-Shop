@@ -17,10 +17,10 @@ if(isset($_POST['submit']))
 	$productprice=$_POST['productprice'];
 	$productpricebd=$_POST['productpricebd'];
 	$productdescription=$_POST['productDescription'];
-	$productscharge=$_POST['productShippingcharge'];
+	// $productscharge=$_POST['productShippingcharge'];
 	$productavailability=$_POST['productAvailability'];
 	
-$sql=mysqli_query($con,"update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productPriceBeforeDiscount='$productpricebd' where id='$pid' ");
+$sql=mysqli_query($con,"update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',productAvailability='$productavailability',productPriceBeforeDiscount='$productpricebd' where id='$pid' ");
 $_SESSION['msg']="Product Updated Successfully !!";
 
 }
@@ -32,7 +32,7 @@ $_SESSION['msg']="Product Updated Successfully !!";
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Staff | Insert Product</title>
+	<title>Staff | Edit Product</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -72,7 +72,7 @@ $("#suggesstion-box").hide();
 
 						<div class="module">
 							<div class="module-head">
-								<h3>Insert Product</h3>
+								<h3>Edit Product</h3>
 							</div>
 							<div class="module-body">
 
@@ -155,17 +155,17 @@ while($rw=mysqli_fetch_array($query))
 <input type="text"    name="productCompany"  placeholder="Enter Product Comapny Name" value="<?php echo htmlentities($row['productCompany']);?>" class="span8 tip" required>
 </div>
 </div>
-<!-- <div class="control-group">
+<div class="control-group">
 <label class="control-label" for="basicinput">Product Price Before Discount</label>
 <div class="controls">
-<input type="text"    name="productpricebd"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPriceBeforeDiscount']);?>"  class="span8 tip" required>
+<input type="number"    name="productpricebd"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPriceBeforeDiscount']);?>"  class="span8 tip" required>
 </div>
-</div> -->
+</div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price</label>
 <div class="controls">
-<input type="text"    name="productprice"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPrice']);?>" class="span8 tip" required>
+<input type="number"    name="productprice"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPrice']);?>" class="span8 tip" required>
 </div>
 </div>
 
@@ -178,12 +178,12 @@ while($rw=mysqli_fetch_array($query))
 </div>
 </div>
 
-<div class="control-group">
+<!-- <div class="control-group">
 <label class="control-label" for="basicinput">Product Shipping Charge</label>
 <div class="controls">
 <input type="text"    name="productShippingcharge"  placeholder="Enter Product Shipping Charge" value="<?php echo htmlentities($row['shippingCharge']);?>" class="span8 tip" required>
 </div>
-</div>
+</div> -->
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Availability</label>

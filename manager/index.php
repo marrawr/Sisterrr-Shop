@@ -59,7 +59,7 @@ exit();
 				
 					<ul class="nav pull-right">
 
-						<li><a href="http://localhost/shopping/">
+						<li><a href="http://localhost/tudung/">
 						Back to Portal
 						
 						</a></li>

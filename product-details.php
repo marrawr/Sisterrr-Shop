@@ -350,7 +350,7 @@ $num=mysqli_num_rows($rt);
 											<span class="label">Shipping Charge :</span>
 										</div>	
 									</div>
-									<div class="col-sm-9">
+									<!-- <div class="col-sm-9">
 										<div class="stock-box">
 											<span class="value"><?php if($row['shippingCharge']==0)
 											{
@@ -363,7 +363,7 @@ $num=mysqli_num_rows($rt);
 
 											?></span>
 										</div>	
-									</div>
+									</div> -->
 								</div><!-- /.row -->	
 							</div>
 

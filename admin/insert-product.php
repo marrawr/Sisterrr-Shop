@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
 	$productprice=$_POST['productprice'];
 	$productpricebd=$_POST['productpricebd'];
 	$productdescription=$_POST['productDescription'];
-	$productscharge=$_POST['productShippingcharge'];
+	// $productscharge=$_POST['productShippingcharge'];
 	$productavailability=$_POST['productAvailability'];
 	$productimage1=$_FILES["productimage1"]["name"];
 	$productimage2=$_FILES["productimage2"]["name"];
@@ -35,7 +35,7 @@ if(!is_dir($dir)){
 	move_uploaded_file($_FILES["productimage1"]["tmp_name"],"productimages/$productid/".$_FILES["productimage1"]["name"]);
 	move_uploaded_file($_FILES["productimage2"]["tmp_name"],"productimages/$productid/".$_FILES["productimage2"]["name"]);
 	move_uploaded_file($_FILES["productimage3"]["tmp_name"],"productimages/$productid/".$_FILES["productimage3"]["name"]);
-$sql=mysqli_query($con,"insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productimage1','$productimage2','$productimage3','$productpricebd')");
+$sql=mysqli_query($con,"insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,productAvailability,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productavailability','$productimage1','$productimage2','$productimage3','$productpricebd')");
 $_SESSION['msg']="Product Inserted Successfully !!";
 
 }
@@ -132,6 +132,13 @@ while($row=mysqli_fetch_array($query))
 <label class="control-label" for="basicinput">Sub Category</label>
 <div class="controls">
 <select   name="subcategory"  id="subcategory" class="span8 tip" required>
+<option value="">Select Category</option> 
+<?php $query=mysqli_query($con,"select * from subcategory");
+while($row=mysqli_fetch_array($query))
+{?>
+
+<option value="<?php echo $row['id'];?>"><?php echo $row['subcategory'];?></option>
+<?php } ?>
 </select>
 </div>
 </div>
@@ -151,17 +158,17 @@ while($row=mysqli_fetch_array($query))
 </div>
 </div>
 <div class="control-group">
-<label class="control-label" for="basicinput">Product Price Before Discount</label>
-<div class="controls">
-<input type="text"    name="productpricebd"  placeholder="Enter Product Price" class="span8 tip" required>
-</div>
+    <label class="control-label" for="basicinput">Product Price Before Discount</label>
+    <div class="controls">
+        <input type="number" name="productpricebd" placeholder="Enter Product Price" class="span8 tip" required>
+    </div>
 </div>
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Product Price After Discount(Selling Price)</label>
-<div class="controls">
-<input type="text"    name="productprice"  placeholder="Enter Product Price" class="span8 tip" required>
-</div>
+    <label class="control-label" for="basicinput">Product Price After Discount(Selling Price)</label>
+    <div class="controls">
+        <input type="number" name="productprice" placeholder="Enter Product Price" class="span8 tip" required>
+    </div>
 </div>
 
 <div class="control-group">
@@ -172,12 +179,12 @@ while($row=mysqli_fetch_array($query))
 </div>
 </div>
 
-<div class="control-group">
+<!-- <div class="control-group">
 <label class="control-label" for="basicinput">Product Shipping Charge</label>
 <div class="controls">
 <input type="text"    name="productShippingcharge"  placeholder="Enter Product Shipping Charge" class="span8 tip" required>
 </div>
-</div>
+</div> -->
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Availability</label>

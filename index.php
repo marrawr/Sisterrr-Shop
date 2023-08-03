@@ -216,7 +216,7 @@ while ($row=mysqli_fetch_array($ret))
 			
 		</div><!-- /.product-info -->
 		<?php if($row['productAvailability']=='In Stock'){?>
-					<div class="action"><a href="index.php?page=product&action=add&id=<?php echo $row['id']; ?>" class="lnk btn btn-primary">Add to Cart</a></div>
+					<div class="action"><a href="http://tudung.test/login.php" class="lnk btn btn-primary">Add to Cart</a></div>
 				<?php } else {?>
 						<div class="action" style="color:red">Out of Stock</div>
 					<?php } ?>

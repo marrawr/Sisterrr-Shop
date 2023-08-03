@@ -86,7 +86,13 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 $from=date('Y-m-d')." ".$f1;
 $t1="23:59:59";
 $to=date('Y-m-d')." ".$t1;
-$query=mysqli_query($con,"select distinct name,email,contactno,shippingAddress,shippingCity,shippingState,totalprice,shippingPincode,trackorder,orderDate from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderDate Between '$from' and '$to'");
+$query = mysqli_query($con, "SELECT DISTINCT name, email, contactno, shippingAddress, shippingCity, shippingState, totalprice, shippingPincode, trackorder, orderDate 
+                            FROM orders 
+                            JOIN users ON orders.userId = users.id 
+                            JOIN products ON products.id = orders.productId 
+                            WHERE orders.orderDate BETWEEN '$from' AND '$to'
+                            ORDER BY orderDate DESC");
+
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {

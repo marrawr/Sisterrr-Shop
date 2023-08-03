@@ -83,17 +83,15 @@ $oid = intval($_GET['oid']);
               <td class="fontkink1"><b>Status:</b></td> 
               <td class="fontkink"><?php echo $row['orderStatus']; ?></td> 
             </tr> 
-            <tr height="20"> 
+            <!-- <tr height="20"> 
               <td class="fontkink1"><b>Remark:</b></td> 
               <td class="fontkink"><?php echo $row['remark']; ?></td> 
-            </tr> 
- 
-            <tr> 
-              <td colspan="2"> 
-                <hr /> 
-              </td> 
-            </tr> 
-          <?php } 
+            </tr>  -->
+
+
+          </td> 
+            
+          <!-- <?php } 
         } else { 
           ?> 
           <tr> 
@@ -108,10 +106,10 @@ $oid = intval($_GET['oid']);
         if ($st == $currrentSt) { 
         ?> 
           <tr> 
-            <td colspan="2"><b>Status: Product Delivered Successfully</b></td> 
+            <td colspan="2"><b>Status: Product Delivered</b></td> 
           </tr> 
         <?php } 
-        ?> 
+        ?>  -->
       </table> 
     </form> 
   </div> 

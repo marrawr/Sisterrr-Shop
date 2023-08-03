@@ -29,23 +29,24 @@ if (isset($_POST['remove_code'])) {
 
 
 if (isset($_POST['ordersubmit'])) {
-	
+
 	if (strlen($_SESSION['login']) == 0) {
 		header('location:login.php');
-	}else{$pref = date("Ymd");
-    
-	$ref = rand(1000, 99999);
-    $code = $pref . $ref;
-	$_SESSION['track'] = $code;
+	} else {
+		$pref = date("Ymd");
 
-    $quantity = $_POST['quantity'];
-    $pdd = $_SESSION['pid'];
-    $value = array_combine($pdd, $quantity);
+		$ref = rand(1000, 99999);
+		$code = $pref . $ref;
+		$_SESSION['track'] = $code;
 
-    foreach ($value as $qty => $val34) {
-        mysqli_query($con, "INSERT INTO orders (userId,trackorder, productId, quantity,totalprice) VALUES ('". $_SESSION['id']."','". $_SESSION['track']."', '$qty', '$val34','".$_SESSION['totalprice']."')");
-    }
-}
+		$quantity = $_POST['quantity'];
+		$pdd = $_SESSION['pid'];
+		$value = array_combine($pdd, $quantity);
+
+		foreach ($value as $qty => $val34) {
+			mysqli_query($con, "INSERT INTO orders (userId,trackorder, productId, quantity,totalprice) VALUES ('" . $_SESSION['id'] . "','" . $_SESSION['track'] . "', '$qty', '$val34','" . $_SESSION['totalprice'] . "')");
+		}
+	}
 	header('Location: payment-method.php?customerid=' . $_SESSION['id'] . '&totalprice=' . $_SESSION['totalprice']);
 }
 
@@ -126,7 +127,15 @@ if (isset($_POST['shipupdate'])) {
 			<script src="assets/js/html5shiv.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+		<style>
+        /* Add your custom CSS here */
+        .empty-cart-text {
+            font-size: 18px;
+            font-family: 'Roboto', sans-serif;
+			font-weight: bold;
 
+        }
+    </style>
 </head>
 
 <body class="cnt-home">
@@ -165,6 +174,7 @@ if (isset($_POST['shipupdate'])) {
 								?>
 									<table class="table table-bordered">
 										<thead>
+
 											<tr>
 												<th class="cart-romove item">Remove</th>
 												<th class="cart-description item">Image</th>
@@ -172,7 +182,7 @@ if (isset($_POST['shipupdate'])) {
 
 												<th class="cart-qty item">Quantity</th>
 												<th class="cart-sub-total item">Price Per unit</th>
-												<th class="cart-sub-total item">Shipping Charge</th>
+												<!-- <th class="cart-sub-total item">Shipping Charge</th> -->
 												<th class="cart-total last-item">Grandtotal</th>
 											</tr>
 										</thead><!-- /thead -->
@@ -202,7 +212,7 @@ if (isset($_POST['shipupdate'])) {
 											if (!empty($query)) {
 												while ($row = mysqli_fetch_array($query)) {
 													$quantity = $_SESSION['cart'][$row['id']]['quantity'];
-													$subtotal = $_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice'] + $row['shippingCharge'];
+													$subtotal = $_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice'];
 													$totalprice += $subtotal;
 													$_SESSION['qnty'] = $totalqunty += $quantity;
 													$_SESSION['totalprice'] = $totalprice;
@@ -220,8 +230,8 @@ if (isset($_POST['shipupdate'])) {
 														<td class="cart-product-name-info">
 															<h4 class='cart-product-description'><a href="product-details.php?pid=<?php echo htmlentities($pd = $row['id']); ?>"><?php echo $row['productName'];
 
-																																												$_SESSION['sid'] = $pd;
-																																												?></a></h4>
+																																													$_SESSION['sid'] = $pd;
+																																													?></a></h4>
 															<div class="row">
 																<div class="col-sm-4">
 																	<div class="rating rateit-small"></div>
@@ -250,9 +260,9 @@ if (isset($_POST['shipupdate'])) {
 															</div>
 														</td>
 														<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "RM" . " " . $row['productPrice']; ?>.00</span></td>
-														<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "RM" . " " . $row['shippingCharge']; ?>.00</span></td>
+														<!-- <td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "RM" . " " . $row['shippingCharge']; ?>.00</span></td> -->
 
-														<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo ($_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice'] + $row['shippingCharge']); ?>.00</span></td>
+														<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo ($_SESSION['cart'][$row['id']]['quantity'] * $row['productPrice']); ?>.00</span></td>
 													</tr>
 
 											<?php }
@@ -265,117 +275,114 @@ if (isset($_POST['shipupdate'])) {
 
 						</div>
 					</div><!-- /.shopping-cart-table -->
-					
-<div class="col-md-4 col-sm-12 estimate-ship-tax"> 
-<p>*Please Fill In the Shipping Address !</p> 
-      <table class="table table-bordered"> 
- 
-       <thead> 
-        <tr> 
-         <th> 
-          <span class="estimate-title">Shipping Address</span> 
-         </th> 
-        </tr> 
-       </thead> 
-       <tbody> 
-        <tr> 
-         <td> 
-          <div class="form-group"> 
-           <?php 
-           $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'"); 
-           while ($row = mysqli_fetch_array($query)) { 
-           ?> 
- 
-            <div class="form-group"> 
-             <label class="info-title" for="Shipping Address">Shipping Address<span>*</span></label> 
-             <textarea class="form-control unicase-form-control text-input" name="shippingaddress" required="required"><?php echo $row['shippingAddress']; ?></textarea> 
-            </div> 
- 
- 
- 
-            <div class="form-group"> 
-             <label class="info-title" for="Billing State ">Shipping State <span>*</span></label> 
-             <input type="text" class="form-control unicase-form-control text-input" id="shippingstate" name="shippingstate" value="<?php echo $row['shippingState']; ?>" required> 
-            </div> 
-            <div class="form-group"> 
-             <label class="info-title" for="Billing City">Shipping City <span>*</span></label> 
-             <input type="text" class="form-control unicase-form-control text-input" id="shippingcity" name="shippingcity" required="required" value="<?php echo $row['shippingCity']; ?>"> 
-            </div> 
-            <div class="form-group"> 
-             <label class="info-title" for="Billing Pincode">Shipping Pincode <span>*</span></label> 
-             <input type="text" class="form-control unicase-form-control text-input" id="shippingpincode" name="shippingpincode" required="required" value="<?php echo $row['shippingPincode']; ?>"> 
-            </div> 
- 
- 
-            <button type="submit" name="shipupdate" class="btn-upper btn btn-primary checkout-page-button">Update</button> 
-           <?php } ?> 
- 
- 
-          </div> 
- 
-         </td> 
-        </tr> 
-       </tbody><!-- /tbody --> 
-      </table><!-- /table --> 
-     </div> 
- 
-     <div class="col-md-4 col-sm-12 estimate-ship-tax">
-	 <p>Please Fill In the Billing Address !</p>  
-      <table class="table table-bordered"> 
-       <!-- <text>Please Fill In the Billing Address Before Proceed To Checkout </text> --> 
-       <thead> 
-        <tr> 
-         <th> 
-          <span class="estimate-title">Billing Address</span> 
-         </th> 
-        </tr> 
-       </thead> 
-       <tbody> 
-        <tr> 
-         <td> 
- 
-          <div class="form-group"> 
-           
-           <?php 
-           $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'"); 
-           while ($row = mysqli_fetch_array($query)) { 
-           ?> 
- 
-            <div class="form-group"> 
-             <label class="info-title" for="Billing Address">Billing Address<span>*</span></label> 
-             <textarea class="form-control unicase-form-control text-input" name="billingaddress" required="required"><?php echo $row['billingAddress']; ?></textarea> 
-            </div> 
- 
- 
- 
-            <div class="form-group"> 
-             <label class="info-title" for="Billing State ">Billing State <span>*</span></label> 
-             <input type="text" class="form-control unicase-form-control text-input" id="bilingstate" name="bilingstate" value="<?php echo $row['billingState']; ?>" required> 
-            </div> 
-            <div class="form-group"> 
-             <label class="info-title" for="Billing City">Billing City <span>*</span></label> 
-             <input type="text" class="form-control unicase-form-control text-input" id="billingcity" name="billingcity" required="required" value="<?php echo $row['billingCity']; ?>"> 
-            </div> 
-            <div class="form-group"> 
-             <label
+
+					<div class="col-md-4 col-sm-12 estimate-ship-tax">
+						<p>Please Fill In the Shipping Address !</p>
+						<table class="table table-bordered">
+
+							<thead>
+								<tr>
+									<th>
+										<span class="estimate-title">Shipping Address</span>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div class="form-group">
+											<?php
+											$query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
+											while ($row = mysqli_fetch_array($query)) {
+											?>
+
+												<div class="form-group">
+													<label class="info-title" for="Shipping Address">Shipping Address<span>*</span></label>
+													<textarea class="form-control unicase-form-control text-input" name="shippingaddress" required="required"><?php echo $row['shippingAddress']; ?></textarea>
+												</div>
 
 
-class="info-title" for="Billing Pincode">Billing Pincode <span>*</span></label> 
-             <input type="text" class="form-control unicase-form-control text-input" id="billingpincode" name="billingpincode" required="required" value="<?php echo $row['billingPincode']; ?>"> 
-            </div> 
- 
- 
-            <button type="submit" name="update" class="btn-upper btn btn-primary checkout-page-button">Update</button> 
- 
-           <?php } ?> 
- 
-          </div> 
- 
-         </td> 
-        </tr> 
-       </tbody><!-- /tbody --> 
-      </table><!-- /table --> 
-     </div>
+
+												<div class="form-group">
+													<label class="info-title" for="Billing State ">Shipping State <span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input" id="shippingstate" name="shippingstate" value="<?php echo $row['shippingState']; ?>" required>
+												</div>
+												<div class="form-group">
+													<label class="info-title" for="Billing City">Shipping City <span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input" id="shippingcity" name="shippingcity" required="required" value="<?php echo $row['shippingCity']; ?>">
+												</div>
+												<div class="form-group">
+													<label class="info-title" for="Billing Pincode">Shipping Pincode <span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input" id="shippingpincode" name="shippingpincode" required="required" value="<?php echo $row['shippingPincode']; ?>">
+												</div>
+
+
+												<button type="submit" name="shipupdate" class="btn-upper btn btn-primary checkout-page-button">Update</button>
+											<?php } ?>
+
+
+										</div>
+
+									</td>
+								</tr>
+							</tbody><!-- /tbody -->
+						</table><!-- /table -->
+					</div>
+
+					<div class="col-md-4 col-sm-12 estimate-ship-tax">
+						<p>Please Fill In the Billing Address !</p>
+						<table class="table table-bordered">
+							<!-- <text>Please Fill In the Billing Address Before Proceed To Checkout </text> -->
+							<thead>
+								<tr>
+									<th>
+										<span class="estimate-title">Billing Address</span>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+
+										<div class="form-group">
+
+											<?php
+											$query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
+											while ($row = mysqli_fetch_array($query)) {
+											?>
+
+												<div class="form-group">
+													<label class="info-title" for="Billing Address">Billing Address<span>*</span></label>
+													<textarea class="form-control unicase-form-control text-input" name="billingaddress" required="required"><?php echo $row['billingAddress']; ?></textarea>
+												</div>
+
+
+
+												<div class="form-group">
+													<label class="info-title" for="Billing State ">Billing State <span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input" id="bilingstate" name="bilingstate" value="<?php echo $row['billingState']; ?>" required>
+												</div>
+												<div class="form-group">
+													<label class="info-title" for="Billing City">Billing City <span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input" id="billingcity" name="billingcity" required="required" value="<?php echo $row['billingCity']; ?>">
+												</div>
+												<div class="form-group">
+													<label class="info-title" for="Billing Pincode">Billing Pincode <span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input" id="billingpincode" name="billingpincode" required="required" value="<?php echo $row['billingPincode']; ?>">
+												</div>
+
+
+												<button type="submit" name="update" class="btn-upper btn btn-primary checkout-page-button">Update</button>
+
+											<?php } ?>
+
+										</div>
+
+									</td>
+								</tr>
+							</tbody><!-- /tbody -->
+						</table><!-- /table -->
+					</div>
 					<div class="col-md-4 col-sm-12 cart-shopping-total">
 						<table class="table table-bordered">
 							<thead>
@@ -400,9 +407,10 @@ class="info-title" for="Billing Pincode">Billing Pincode <span>*</span></label>
 							</tbody><!-- /tbody -->
 						</table>
 
-					<?php } else {
-									echo "Welcome! Your shopping Cart is empty";
-								} ?>
+					<?php } else { ?>
+						<span class="empty-cart-text">Welcome! Your shopping Cart is empty</span>
+					<?php } ?>
+
 					</div>
 				</div>
 			</div>

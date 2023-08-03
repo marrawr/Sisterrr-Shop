@@ -48,7 +48,7 @@ $num_rows1 = mysqli_num_rows($result);
 							<li>
 								<a href="manage-users.php">
 									<i class="menu-icon icon-group"></i>
-									Manage users
+									List of Customer
 								</a>
 							</li>
 						</ul>

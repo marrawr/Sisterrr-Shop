@@ -97,9 +97,9 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 					<th class="cart-product-name item">Product Name</th>
 			
 					<th class="cart-qty item">Quantity</th>
-					<th class="cart-sub-total item">Price Per unit</th>
-					<th class="cart-sub-total item">Shipping Charge</th>
-					<th class="cart-total item">Grandtotal</th>
+					<th class="cart-sub-total item">Price Per unit (RM)</th>
+					<!-- <th class="cart-sub-total item">Shipping Charge</th> -->
+					<th class="cart-total item">Grandtotal (RM)</th>
 					<th class="cart-total item">Payment Method</th>
 					<th class="cart-description item">Order Date</th>
 					<th class="cart-total last-item">Action</th>
@@ -108,7 +108,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 			
 			<tbody>
 
-<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null");
+<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice, orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null ORDER BY orderDate DESC");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -130,8 +130,8 @@ while($row=mysqli_fetch_array($query))
 						<?php echo $qty=$row['qty']; ?>   
 		            </td>
 					<td class="cart-product-sub-total"><?php echo $price=$row['pprice']; ?>  </td>
-					<td class="cart-product-sub-total"><?php echo $shippcharge=$row['shippingcharge']; ?>  </td>
-					<td class="cart-product-grand-total"><?php echo (($qty*$price)+$shippcharge);?></td>
+					<!-- <td class="cart-product-sub-total"><?php echo $shippcharge=$row['shippingcharge']; ?>  </td> -->
+					<td class="cart-product-grand-total"><?php echo (($qty*$price));?></td>
 					<td class="cart-product-sub-total"><?php echo $row['paym']; ?>  </td>
 					<td class="cart-product-sub-total"><?php echo $row['odate']; ?>  </td>
 					

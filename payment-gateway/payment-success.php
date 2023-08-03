@@ -141,7 +141,7 @@ $balance = $balanceNumber - $amount;
                   <td class="p-3"></td>
                   <td class="p-3">Recipient Name</td>
                   <td class="p-3">:</td>
-                  <td class="p-3">Titan Life Resources</td>
+                  <td class="p-3">Sisterrr Shop</td>
                   <td class="p-3"></td>
                 </tr>
                 </tbody>
