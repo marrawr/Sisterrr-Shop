@@ -83,7 +83,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 <tbody>
 <?php 
 $status='Delivered';
-$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.	orderStatus!='$status' or orders.orderStatus is null ORDER BY orderDate DESC");
+$query=mysqli_query($con,"select users.name as username,users.email as useremail,orders.trackorder as track, users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderStatus='In Process' ORDER BY orderDate DESC");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -97,8 +97,9 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['quantity']);?></td>
 											<td><?php echo htmlentities($row['quantity']*$row['productprice']);?></td>
 											<td><?php echo htmlentities($row['orderdate']);?></td>
-											<td>   <a href="updateorder.php?oid=<?php echo htmlentities($row['id']);?>" title="Update order" target="_blank"><i class="icon-edit"></i></a>
-											</td>
+											<td>    <a href="#editstatus<?php echo $row['id'];?>" title="Update order" data-toggle="modal"><i class="icon-edit"></i></a>
+											<?php include('order_modal2.php'); ?>
+										</td>
 											</tr>
 
 										<?php $cnt=$cnt+1; } ?>

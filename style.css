@@ -1,0 +1,32 @@
+/* styles.css */
+
+/* Style the dropdown menu */
+.nav-user.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-user .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: none;
+    background-color: #876345;
+    border: 1px solid #ccc;
+    min-width: 150px;
+}
+
+.nav-user .dropdown-menu li {
+    display: block;
+    padding: 10px;
+}
+
+.nav-user .dropdown-menu li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-user .dropdown-menu li a:hover {
+    background-color: #876345;
+}
