@@ -1014,7 +1014,7 @@ box-shadow: 0 1px 1px rgba(0,0,0,.05);
 .module-head {
 	
 	color: #767676;
-background-color: #FABB17;
+background-color: #f6f6f6;
 border-color: #e9e9e9;
 
 
@@ -1049,7 +1049,7 @@ border-top-left-radius: 3px;
 	padding-right: 15px
 }
 .module-foot {
-	background: #FABB17;
+	background: #f9f9f9;
 	border-top: 1px solid #ddd;
 	-webkit-border-radius: 0 0 2px 2px;
 	-moz-border-radius: 0 0 2px 2px;

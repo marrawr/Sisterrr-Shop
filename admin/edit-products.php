@@ -161,6 +161,7 @@ while($rw=mysqli_fetch_array($query))
 <input type="number"    name="productpricebd"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPriceBeforeDiscount']);?>"  class="span8 tip" required>
 </div>
 </div>
+</div> -->
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price</label>
