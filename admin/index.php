@@ -83,9 +83,9 @@ if (isset($_POST['submit'])) {
 						</div>
 						<div class="module-body">
 
-							<div class="alert alert-error">
+							
 								<span style="color:red;"><?php echo htmlentities($_SESSION['errmsg']); ?><?php echo htmlentities($_SESSION['errmsg'] = ""); ?></span>
-							</div>
+							
 
 							<div class="control-group">
 								<div class="controls row-fluid">

@@ -22,6 +22,7 @@
 					<li><a href="my-cart.php"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
 					<?php if (strlen($_SESSION['login']) == 0) {   ?>
 						<li><a href="login.php"><i class="icon fa fa-sign-in"></i>Login</a></li>
+						
 						<!-- <div class="nav-collapse collapse navbar-inverse-collapse">
 							<ul class="nav pull-right">
 								<li><a href="#">
