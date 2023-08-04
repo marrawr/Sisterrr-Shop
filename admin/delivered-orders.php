@@ -73,7 +73,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<th>Qty </th>
 											<th>Amount </th>
 											<th>Order Date</th>
-											<th>Action</th>
+											<th>View</th>
 											
 										
 										</tr>

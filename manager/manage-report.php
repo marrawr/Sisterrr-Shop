@@ -133,7 +133,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             $i = 1;
                                             $merged_data = array(); // Array to store merged data
 
-                                            $stock = $con->query("SELECT * FROM `orders` INNER JOIN `products` ON orders.productid = products.id WHERE date(orderDate) BETWEEN '{$date_start}' AND '{$date_end}' ORDER BY productName");
+                                            $stock = $con->query("SELECT * FROM `orders` INNER JOIN `products` ON orders.productid = products.id, WHERE date(orderDate) BETWEEN '{$date_start}' AND '{$date_end}' ORDER BY productName");
                                             while ($row = $stock->fetch_assoc()) {
                                                 $subtotal = $row['quantity'] * $row['productPrice'];
                                                 $g_total += $subtotal;

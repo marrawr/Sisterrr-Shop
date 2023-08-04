@@ -155,13 +155,13 @@ while($rw=mysqli_fetch_array($query))
 <input type="text"    name="productCompany"  placeholder="Enter Product Comapny Name" value="<?php echo htmlentities($row['productCompany']);?>" class="span8 tip" required>
 </div>
 </div>
+
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price Before Discount</label>
 <div class="controls">
 <input type="number"    name="productpricebd"  placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPriceBeforeDiscount']);?>"  class="span8 tip" required>
 </div>
 </div>
-</div> -->
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price</label>
