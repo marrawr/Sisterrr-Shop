@@ -113,7 +113,7 @@ if(isset($_GET['del']))
 											<th>Category</th>
 											<th>Description</th>
 											<th>Creation date</th>
-											<th>Last Updated</th>
+											<!-- <th>Last Updated</th> -->
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -129,7 +129,7 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['categoryName']);?></td>
 											<td><?php echo htmlentities($row['categoryDescription']);?></td>
 											<td> <?php echo htmlentities($row['creationDate']);?></td>
-											<td><?php echo htmlentities($row['updationDate']);?></td>
+											<!-- <td><?php echo htmlentities($row['updationDate']);?></td> -->
 											<td>
 											<a href="edit-category.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
 											<a href="category.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
