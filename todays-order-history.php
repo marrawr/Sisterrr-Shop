@@ -1,52 +1,14 @@
-<?php
+<?php 
 session_start();
-
+error_reporting(0);
 include('includes/config.php');
-
-
-// if(strlen($_SESSION['login'])==0)
-//     {   
-// header('location:login.php');
-// }
-// else{
-// 	if (isset($_POST['submit'])) {
-
-// 		mysqli_query($con,"update orders set 	paymentMethod='".$_POST['paymethod']."' where userId='".$_SESSION['id']."' and paymentMethod is null ");
-// 		unset($_SESSION['cart']);
-// 		header('location:order-history.php');
-
-// 	}
-
-if (strlen($_SESSION['login']) == 0) {
-    header('location:login.php');
-} else {
-    if (isset($_POST['submit'])) {
-        $paymentMethod = $_POST['paymethod'];
-			
-        // Update the payment method in the database
-        mysqli_query($con, "UPDATE orders SET paymentMethod='" . $paymentMethod . "', statuspayment='Unpaid' WHERE userId='" . $_SESSION['id'] . "' AND paymentMethod IS NULL");
-		unset($_SESSION['cart']);
-        // Redirect based on the payment method
-        if ($paymentMethod === 'COD') {
-            header('location:todays-order-history.php');
-        } elseif ($paymentMethod === 'Internet Banking') {
-            // Redirect to the payment gateway page
-            // Replace 'payment_gateway_page.php' with the actual URL of the payment gateway page
-            header('Location: payment-gateway/index.php?bank=1&id=1&totalprice=' . $_SESSION['totalprice'] . '&customerid=' . $_SESSION['id']. '&trackorder=' . $_SESSION['track']);
-
-        } else {
-            // Handle other payment methods here if needed
-            // Redirect to a default page or show an error message
-            header('location:default_page.php');
-        }
-
-        // Make sure to exit the script after redirection
-        exit;
-    }
+if(strlen($_SESSION['login'])==0)
+    {   
+header('location:login.php');
 }
-?>
+else{
 
-<!-- The rest of your HTML code remains the same -->
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +22,7 @@ if (strlen($_SESSION['login']) == 0) {
 	    <meta name="keywords" content="MediaCenter, Template, eCommerce">
 	    <meta name="robots" content="all">
 
-	    <title>Sisterrr Shop | Payment Method</title>
+	    <title>Order History</title>
 	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="assets/css/main.css">
 	    <link rel="stylesheet" href="assets/css/nude.css">
@@ -71,7 +33,10 @@ if (strlen($_SESSION['login']) == 0) {
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 		<link rel="stylesheet" href="assets/css/rateit.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
+
+		<!-- Demo Purpose Only. Should be removed in production -->
 		<link rel="stylesheet" href="assets/css/config.css">
+
 		<link href="assets/css/nude.css" rel="alternate stylesheet" title="Green color">
 		<link href="assets/css/blue.css" rel="alternate stylesheet" title="Blue color">
 		<link href="assets/css/red.css" rel="alternate stylesheet" title="Red color">
@@ -80,76 +45,122 @@ if (strlen($_SESSION['login']) == 0) {
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="assets/images/favicon.ico">
+	<script language="javascript" type="text/javascript">
+var popUpWin=0;
+function popUpWindow(URLStr, left, top, width, height)
+{
+ if(popUpWin)
+{
+if(!popUpWin.closed) popUpWin.close();
+}
+popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+600+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
+}
+
+</script>
+
 	</head>
     <body class="cnt-home">
 	
 		
+	
+		<!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
 <?php include('includes/top-header.php');?>
 <?php include('includes/main-header.php');?>
 <?php include('includes/menu-bar.php');?>
 </header>
+<!-- ============================================== HEADER : END ============================================== -->
 <div class="breadcrumb">
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="home.html">Home</a></li>
-				<li class='active'>Payment Method</li>
+				<li><a href="#">Home</a></li>
+				<li class='active'>Shopping Cart</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
 </div><!-- /.breadcrumb -->
 
-<div class="body-content outer-top-bd">
+<div class="body-content outer-top-xs">
 	<div class="container">
-		<div class="checkout-box faq-page inner-bottom-sm">
-			<div class="row">
-				<div class="col-md-12">
-					<h2>Choose Payment Method</h2>
-					<div class="panel-group checkout-steps" id="accordion">
-						<!-- checkout-step-01  -->
-<div class="panel panel-default checkout-step-01">
+		<div class="row inner-bottom-sm">
+			<div class="shopping-cart">
+				<div class="col-md-12 col-sm-12 shopping-cart-table ">
+	<div class="table-responsive">
+<form name="cart" method="post">	
 
-	<!-- panel-heading -->
-		<div class="panel-heading">
-    	<h4 class="unicase-checkout-title">
-	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-	         Select your Payment Method
-	        </a>
-	     </h4>
-    </div>
-    <!-- panel-heading -->
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="cart-romove item">#</th>
+					<th class="cart-description item">Image</th>
+					<th class="cart-product-name item">Product Name</th>
+			
+					<th class="cart-qty item">Quantity</th>
+					<th class="cart-sub-total item">Price Per unit (RM)</th>
+					<!-- <th class="cart-sub-total item">Shipping Charge</th> -->
+					<th class="cart-total item">Grandtotal (RM)</th>
+					<th class="cart-total item">Payment Method</th>
+					<th class="cart-description item">Order Date</th>
+					<th class="cart-total last-item">Action</th>
+				</tr>
+			</thead><!-- /thead -->
+			
+			<tbody>
 
-	<div id="collapseOne" class="panel-collapse collapse in">
-
-		<!-- panel-body  -->
-	    <div class="panel-body">
-	    <form name="payment" method="post">
-	    <input type="radio" name="paymethod" value="COD" checked="checked"> COD
-	     <input type="radio" name="paymethod" value="Internet Banking"> Internet Banking <br /><br />
-	     <!-- <input type="radio" name="paymethod" value="Debit / Credit card"> Debit / Credit card <br /><br /> -->
-	     <input type="submit" value="submit" name="submit" class="btn btn-primary">
-	    	
-
-	    </form>		
-		</div>
+<?php 
+$f1="00:00:00";
+$from=date('Y-m-d')." ".$f1;
+$t1="23:59:59";
+$to=date('Y-m-d')." ".$t1;
+$query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice, orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null and orders.orderDate Between '$from' and '$to' ORDER BY orderDate DESC");
+$cnt=1;
+while($row=mysqli_fetch_array($query))
+{
+?>
+				<tr>
+					<td><?php echo $cnt;?></td>
+					<td class="cart-image">
+						<a class="entry-thumbnail" href="detail.html">
+						    <img src="admin/productimages/<?php echo $row['proid'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
+						</a>
+					</td>
+					<td class="cart-product-name-info">
+						<h4 class='cart-product-description'><a href="product-details.php?pid=<?php echo $row['opid'];?>">
+						<?php echo $row['pname'];?></a></h4>
+						
+						
+					</td>
+					<td class="cart-product-quantity">
+						<?php echo $qty=$row['qty']; ?>   
+		            </td>
+					<td class="cart-product-sub-total"><?php echo $price=$row['pprice']; ?>  </td>
+					<!-- <td class="cart-product-sub-total"><?php echo $shippcharge=$row['shippingcharge']; ?>  </td> -->
+					<td class="cart-product-grand-total"><?php echo (($qty*$price));?></td>
+					<td class="cart-product-sub-total"><?php echo $row['paym']; ?>  </td>
+					<td class="cart-product-sub-total"><?php echo $row['odate']; ?>  </td>
+					
+					<td>
+ <a href="javascript:void(0);" onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row['orderid']);?>');" title="Track order">
+					Track</td>
+				</tr>
+<?php $cnt=$cnt+1;} ?>
+				
+			</tbody><!-- /tbody -->
+		</table><!-- /table -->
 		
-		<!-- panel-body  -->
-
-	</div><!-- row -->
+	</div>
 </div>
-<!-- checkout-step-01  -->
-					  
-					  	
-					</div><!-- /.checkout-steps -->
-				</div>
-			</div><!-- /.row -->
-		</div><!-- /.checkout-box -->
+
+		</div><!-- /.shopping-cart -->
+		</div> <!-- /.row -->
+		</form>
 		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
 <?php echo include('includes/brands-slider.php');?>
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
 </div><!-- /.body-content -->
 <?php include('includes/footer.php');?>
+
 	<script src="assets/js/jquery-1.11.1.min.js"></script>
 	
 	<script src="assets/js/bootstrap.min.js"></script>
@@ -184,9 +195,6 @@ if (strlen($_SESSION['login']) == 0) {
 		});
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
-
-	
-
 </body>
 </html>
-<?php  ?>
+<?php } ?>

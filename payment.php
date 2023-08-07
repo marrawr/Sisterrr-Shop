@@ -48,7 +48,7 @@ if (strlen($_SESSION['login']) == 0) {
 
         // Redirect based on the payment method
         if ($Proof === 'proof') {
-            header('location:order-history.php');
+            header('location:todays-order-history.php');
         } elseif ($Proof === 'Internet Banking') {
             // Redirect to the payment gateway page
             // Replace 'payment_gateway_page.php' with the actual URL of the payment gateway page

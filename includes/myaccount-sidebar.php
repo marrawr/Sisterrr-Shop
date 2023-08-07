@@ -11,6 +11,7 @@
 					<li><a href="my-account.php">My Account</a></li>
 					<li><a href="bill-ship-addresses.php">Shipping / Billing Address</a></li>
 					<li><a href="order-history.php">Order History</a></li>
+					<li><a href="todays-order-history.php">Today's Order History</a></li>
 					<!-- <li><a href="pending-orders.php">Payment Pending Order</a></li> -->
 				</ul>		
 			</div>
