@@ -80,9 +80,14 @@ $oid = intval($_GET['oid']);
               <td class="fontkink"><?php echo $row['orderDate']; ?></td> 
             </tr> 
             <tr height="20"> 
+              <td class="fontkink1"><b>Payment Status:</b></td> 
+              <td class="fontkink"><?php echo $row['statuspayment']; ?></td> 
+            </tr> 
+            <tr height="20"> 
               <td class="fontkink1"><b>Status:</b></td> 
               <td class="fontkink"><?php echo $row['orderStatus']; ?></td> 
             </tr> 
+            
             <!-- <tr height="20"> 
               <td class="fontkink1"><b>Remark:</b></td> 
               <td class="fontkink"><?php echo $row['remark']; ?></td> 

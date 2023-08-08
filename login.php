@@ -191,7 +191,7 @@ echo htmlentities($_SESSION['errmsg']="");
 		 <input type="password" name="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="123@abc" >
 		</div>
 		<div class="radio outer-xs">
-		  	<a href="forgot-password.php" class="forgot-password pull-right">Forgot your Password?</a>
+		  	<a href="forgot-password.php" class="forgot-password pull-right">Forgot your password?</a>
 		</div>
 	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button" name="login">Login</button>
 	</form>					
@@ -201,7 +201,7 @@ echo htmlentities($_SESSION['errmsg']="");
 <!-- create a new account -->
 <div class="col-md-6 col-sm-6 create-new-account">
 	<h4 class="checkout-subtitle">create a new account</h4>
-	<p class="text title-tag-line">Create your own Shopping account.</p>
+	<p class="text title-tag-line">Create your own shopping account.</p>
 	<form class="register-form outer-top-xs" role="form" method="post" name="register" onSubmit="return valid();">
 <div class="form-group">
 	    	<label class="info-title" for="fullname">Full Name <span>*</span></label>
