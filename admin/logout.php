@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 $_SESSION['alogin'] == "";
 session_unset();
 //session_destroy();

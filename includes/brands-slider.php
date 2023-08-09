@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <div id="brands-carousel" class="logo-slider wow fadeInUp">
 		<h3 class="section-title">Our Brands</h3>
 		<div class="logo-slider-inner">	

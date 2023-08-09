@@ -10,7 +10,7 @@
 	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
 </head>
 
-
+<?php error_reporting(0);?>
 <div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">

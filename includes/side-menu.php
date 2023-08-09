@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <div class="side-menu animate-dropdown outer-bottom-xs">
     <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>        
     <nav class="yamm megamenu-horizontal" role="navigation">

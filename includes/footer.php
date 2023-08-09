@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <footer id="footer" class="footer color-bg">
 	  <div class="links-social inner-top-sm">
         <div class="container">

@@ -123,7 +123,7 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 							<h4 class="info-box-heading green">money back</h4>
 						</div>
 					</div>	
-					<h6 class="text">30 Day Money Back Guarantee.</h6>
+					<h6 class="text">10 Day Money Back Guarantee.</h6>
 				</div>
 			</div><!-- .col -->
 
@@ -216,7 +216,7 @@ while ($row=mysqli_fetch_array($ret))
 			
 		</div><!-- /.product-info -->
 		<?php if($row['productAvailability']=='In Stock'){?>
-					<div class="action"><a href="http://tudung.test/login.php" class="lnk btn btn-primary">Add to Cart</a></div>
+					<div class="action"><a href="login.php" class="lnk btn btn-primary">Add to Cart</a></div>
 				<?php } else {?>
 						<div class="action" style="color:red">Out of Stock</div>
 					<?php } ?>

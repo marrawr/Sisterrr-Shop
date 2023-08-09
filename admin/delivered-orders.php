@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+error_reporting(0);
 include('include/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
@@ -67,11 +68,12 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 										<tr>
 											<th>#</th>
 											<th> Name</th>
-											<th width="50">Email /Contact no</th>
+											<!-- <th>Email /Contact no</th> -->
 											<th>Shipping Address</th>
-											<th>Product </th>
-											<th>Qty </th>
-											<th>Amount </th>
+											<th>Product</th>
+											<th>Qty</th>
+											<th>Amount</th>
+											<th width="10">Payment Status</th>
 											<th>Order Date</th>
 											<th>View</th>
 											
@@ -82,7 +84,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 <tbody>
 <?php 
 $st='Delivered';
-$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,orders.trackorder as track,orders.orderStatus as orderStatus, users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderStatus='$st' ORDER BY orderDate DESC");
+$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,orders.trackorder as track,orders.orderStatus as orderStatus, users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,orders.quantity as quantity,orders.statuspayment as statuspayment,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderStatus='$st' ORDER BY orderDate DESC");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -90,14 +92,15 @@ while($row=mysqli_fetch_array($query))
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($row['username']);?></td>
-											<td><?php echo htmlentities($row['useremail']);?>/<?php echo htmlentities($row['usercontact']);?></td>
+											<!-- <td><?php echo htmlentities($row['useremail']);?>/<?php echo htmlentities($row['usercontact']);?></td> -->
 										
 											<td><?php echo htmlentities($row['shippingaddress'].",".$row['shippingcity'].",".$row['shippingstate']."-".$row['shippingpincode']);?></td>
 											<td><?php echo htmlentities($row['productname']);?></td>
 											<td><?php echo htmlentities($row['quantity']);?></td>
 											<td><?php echo htmlentities($row['quantity']*$row['productprice']);?></td>
+											<td><?php echo htmlentities($row['statuspayment']);?></td>
 											<td><?php echo htmlentities($row['orderdate']);?></td>
-											<td>    <a href="#editstatus<?php echo $row['id'];?>" title="Update order" data-toggle="modal"><i class="icon-edit"></i></a>
+											<td>    <a href="#editstatus<?php echo $row['id'];?>" title="Update order" data-toggle="modal"><i class="icon-eye-open"></i></a>
 											<?php include('order_modal3.php'); ?>
 										</td>
 											</tr>

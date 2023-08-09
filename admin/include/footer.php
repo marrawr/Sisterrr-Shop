@@ -1,4 +1,5 @@
-	<div class="footer">
+<?php error_reporting(0);?>
+<div class="footer">
 		<div class="container">
 			 
 

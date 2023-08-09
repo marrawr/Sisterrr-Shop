@@ -9,6 +9,7 @@
 </head> -->
   
   <!-- Modal -->
+  <?php error_reporting(0);?>
   <div class="modal fade" id="editstatus<?php echo $row['id'];?>" role="dialog">
     <div class="modal-dialog">
     

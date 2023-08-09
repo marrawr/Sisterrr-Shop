@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <div class="header-nav animate-dropdown">
     <div class="container">
         <div class="yamm navbar navbar-default" role="navigation">

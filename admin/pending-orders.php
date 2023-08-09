@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -64,12 +65,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<tr>
 												<th>#</th>
 												<th> Name</th>
-												<th width="50">Email /Contact no</th>
+												<!-- <th width="50">Email /Contact no</th> -->
 												<th>Shipping Address</th>
 												<th>Product </th>
 												<th>Qty </th>
 												<th>Amount </th>
-												<!-- <th>Payment Status</th> -->
+												<th>Payment Status</th>
 												<th>Order Date</th>
 												<th>Action</th>
 
@@ -89,8 +90,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 											  users.shippingState as shippingstate,
 											  users.shippingPincode as shippingpincode,
 											  products.productName as productname,
-											  orders.quantity as quantity,
-											orders.statuspayment as paystatus, 
+											  orders.quantity as quantity, 
+											  orders.statuspayment as statuspayment,
 											  orders.orderDate as orderdate,
 											  products.productPrice as productprice,
 											  orders.id as id  
@@ -104,12 +105,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
 													<td><?php echo htmlentities($row['username']); ?></td>
-													<td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td>
+													<!-- <td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td> -->
 													<td><?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?></td>
 													<td><?php echo htmlentities($row['productname']); ?></td>
 													<td><?php echo htmlentities($row['quantity']); ?></td>
 													<td><?php echo htmlentities($row['quantity'] * $row['productprice']); ?></td>
-													<!-- <td><?php echo htmlentities($row['paystatus']); ?></td> -->
+													<td><?php echo htmlentities($row['statuspayment']); ?></td>
 
 
 													<td><?php echo htmlentities($row['orderdate']); ?></td>

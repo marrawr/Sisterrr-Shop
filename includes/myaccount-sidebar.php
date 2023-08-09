@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 	<div class="col-md-4">
 					<!-- checkout-progress-sidebar -->
 <div class="checkout-progress-sidebar ">

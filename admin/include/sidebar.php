@@ -1,5 +1,8 @@
-<div class="span3">
+<?php error_reporting(0);?>
+	<div class="span3">
+	
 					<div class="sidebar">
+
 
 
 <ul class="widget widget-menu unstyled">
@@ -74,4 +77,6 @@ $num_rows1 = mysqli_num_rows($result);
 						</ul>
 
 					</div><!--/.sidebar-->
+					
 				</div><!--/.span3-->
+				

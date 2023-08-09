@@ -1,3 +1,4 @@
+<?php error_reporting(0);?>
 <div class="span3">
 					<div class="sidebar">
 

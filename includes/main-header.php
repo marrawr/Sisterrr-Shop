@@ -1,5 +1,5 @@
 <?php 
-
+error_reporting(0);
  if(isset($_Get['action'])){
 		if(!empty($_SESSION['cart'])){
 		foreach($_POST['quantity'] as $key => $val){

@@ -1,6 +1,6 @@
 <html lang="en">
 <?php
-
+error_reporting(0);
 session_start();
 include('../includes/config.php');
 $bank = $_SESSION['payment'];
