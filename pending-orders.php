@@ -111,7 +111,7 @@ else{
 			
 			<tbody>
 
-<?php $query=mysqli_query($con,"select distinct trackorder,orderDate,paymentMethod,statuspayment,totalprice from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod='Internet Banking' and statuspayment='Unpaid'");
+<?php $query=mysqli_query($con,"select distinct trackorder,orderDate,paymentMethod,statuspayment,totalprice from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod='Internet Banking' and statuspayment='Unpaid' order by orderDate desc");
 $cnt=1;
 
 $num=mysqli_num_rows($query);

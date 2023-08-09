@@ -29,7 +29,7 @@ $sql=mysqli_query($con,"SELECT password FROM  users where password='".md5($_POST
 $num=mysqli_fetch_array($sql);
 if($num>0)
 {
- $con=mysqli_query($con,"update students set password='".md5($_POST['newpass'])."', updationDate='$currentTime' where id='".$_SESSION['id']."'");
+ $con=mysqli_query($con,"update users set password='".md5($_POST['newpass'])."', updationDate='$currentTime' where id='".$_SESSION['id']."'");
 echo "<script>alert('Password Changed Successfully !!');</script>";
 }
 else

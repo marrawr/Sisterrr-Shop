@@ -65,7 +65,7 @@ foreach ($sql->fetch_array() as $k => $val) {
                   </div>
 
                   <div class="col">
-                    <a class="btn btn-outline-dark btn-user btn-block" href='../my-cart.php'>Cancel</a>
+                    <a class="btn btn-outline-dark btn-user btn-block" href='../pending-orders.php'>Cancel</a>
                   </div>
 
                 </div>

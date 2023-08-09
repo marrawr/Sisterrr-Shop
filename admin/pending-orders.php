@@ -70,6 +70,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Product </th>
 												<th>Qty </th>
 												<th>Amount </th>
+												<th>Payment Method</th>
 												<th>Payment Status</th>
 												<th>Order Date</th>
 												<th>Action</th>
@@ -91,6 +92,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											  users.shippingPincode as shippingpincode,
 											  products.productName as productname,
 											  orders.quantity as quantity, 
+											  orders.paymentMethod as paymentMethod,
 											  orders.statuspayment as statuspayment,
 											  orders.orderDate as orderdate,
 											  products.productPrice as productprice,
@@ -110,6 +112,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td><?php echo htmlentities($row['productname']); ?></td>
 													<td><?php echo htmlentities($row['quantity']); ?></td>
 													<td><?php echo htmlentities($row['quantity'] * $row['productprice']); ?></td>
+													<td><?php echo htmlentities($row['paymentMethod']); ?></td>
+													
 													<td><?php echo htmlentities($row['statuspayment']); ?></td>
 
 

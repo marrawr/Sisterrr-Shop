@@ -69,6 +69,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<th>Product </th>
 											<th>Qty </th>
 											<th>Amount </th>
+											<th>Payment Method </th>
 											<th>Payment Status </th>
 											<th>Order Date</th>
 											<th>Action</th>
@@ -83,7 +84,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 $from=date('Y-m-d')." ".$f1;
 $t1="23:59:59";
 $to=date('Y-m-d')." ".$t1;
-$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,orders.trackorder as track,orders.statuspayment as statuspayment, products.productPrice as productprice,orders.id as id from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderDate Between '$from' and orderStatus is null and '$to' order by id desc");
+$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,orders.trackorder as track,orders.paymentMethod as paymentMethod,orders.statuspayment as statuspayment, products.productPrice as productprice,orders.id as id from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderDate Between '$from' and orderStatus is null and '$to' order by id desc");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -97,6 +98,7 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['productname']);?></td>
 											<td><?php echo htmlentities($row['quantity']);?></td>
 											<td><?php echo htmlentities($row['quantity']*$row['productprice']+$row['shippingcharge']);?></td>
+											<td><?php echo htmlentities($row['paymentMethod']);?></td>
 											<td><?php echo htmlentities($row['statuspayment']);?></td>
 											<td><?php echo htmlentities($row['orderdate']);?></td>
 											<td>    <a href="#editstatus<?php echo $row['id'];?>" title="Update order" data-toggle="modal"><i class="icon-edit"></i></a>
