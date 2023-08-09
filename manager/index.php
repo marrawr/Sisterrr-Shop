@@ -59,7 +59,7 @@ exit();
 				
 					<ul class="nav pull-right">
 
-						<li><a href="http://localhost/tudung/">
+						<li><a href="http://localhost/Web-based-Hijab-Society-Ordering-System/">
 						Back to Portal
 						
 						</a></li>

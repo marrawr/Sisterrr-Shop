@@ -1,11 +1,10 @@
 <?php
 session_start();
-$_SESSION['alogin']=="";
+$_SESSION['alogin'] == "";
 session_unset();
-session_destroy();
-$_SESSION['errmsg']="You have Successfully Logout";
+//session_destroy();
+$_SESSION['errmsg'] = "You have successfully logout";
 ?>
-
-<script>
-document.location="index.php";
+<script language="javascript">
+    document.location = "index.php";
 </script>
